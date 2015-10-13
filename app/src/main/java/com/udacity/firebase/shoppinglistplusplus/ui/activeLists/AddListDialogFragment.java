@@ -89,7 +89,9 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-
+        // TODO Add code here to create or overwrite a node in Firebase called "listName"
+        // with the text that the user entered in the EditText mEditTextListName.
+        // This EditText is the one found in dialog_add_list with the id edit_text_list_name
     }
 
 }
