@@ -98,8 +98,7 @@ public class AddListDialogFragment extends DialogFragment {
         // Go to the "listName" child node of the root node.
         // This will create the node for you if it doesn't already exist.
         // Then using the setValue menu it will set value the node to userEnteredName.
-        ref.child("listName").setValue(userEnteredName);
+        ref.child(Constants.FIREBASE_PROPERTY_LIST_NAME).setValue(userEnteredName);
     }
-
 }
 
