@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Dimens for text -->
+    <dimen name="list_created_by_text_size">12sp</dimen>
+    <dimen name="lv_header_text_size">10sp</dimen>
+    <dimen name="list_item_text_size">16.6sp</dimen>
+    <dimen name="login_buttons_text_size">15.3sp</dimen>
+
+    <dimen name="edit_text_padding_land">6dp</dimen>
+    <dimen name="lists_title_bottom_margin">13dp</dimen>
+    <dimen name="edit_text_padding">14dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="btn_shopping_height">30dp</dimen>
+    <dimen name="input_field_height_land">36dp</dimen>
+    <dimen name="margin_normal">37dp</dimen>
+    <dimen name="input_field_height">50dp</dimen>
+    <dimen name="activity_horizontal_margin_land">64dp</dimen>
+    <dimen name="lists_row_height">70dp</dimen>
+    <dimen name="empty_footer_height">80dp</dimen>
+    <dimen name="logo_image_size">100dp</dimen>
+</resources>

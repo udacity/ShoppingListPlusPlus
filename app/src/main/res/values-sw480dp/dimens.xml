@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Dimens for text -->
+    <dimen name="list_created_by_text_size">18sp</dimen>
+    <dimen name="lv_header_text_size">15sp</dimen>
+    <dimen name="list_item_text_size">25sp</dimen>
+    <dimen name="login_buttons_text_size">23sp</dimen>
+
+    <dimen name="edit_text_padding_land">9dp</dimen>
+    <dimen name="lists_title_bottom_margin">20dp</dimen>
+    <dimen name="edit_text_padding">21dp</dimen>
+    <dimen name="margin_small">24dp</dimen>
+    <dimen name="btn_shopping_height">45dp</dimen>
+    <dimen name="margin_normal">55dp</dimen>
+    <dimen name="input_field_height_land">63dp</dimen>
+    <dimen name="input_field_height">75dp</dimen>
+    <dimen name="activity_horizontal_margin_land">96dp</dimen>
+    <dimen name="lists_row_height">100dp</dimen>
+    <dimen name="empty_footer_height">110dp</dimen>
+    <dimen name="logo_image_size">150dp</dimen>
+</resources>

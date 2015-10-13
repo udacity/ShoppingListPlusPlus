@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_view_footer_empty"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:foreground="?selectableItemBackground">
+
+    <TextView
+        android:id="@+id/text_view_listview_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/empty_footer_height" />
+</RelativeLayout>
