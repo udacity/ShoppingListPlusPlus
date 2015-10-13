@@ -15,6 +15,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 
@@ -25,7 +26,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
  */
 public class ShoppingListsFragment extends Fragment {
     private ListView mListView;
-    private TextView mTextViewListName;
+    private TextView mTextViewListName, mTextViewListOwner;
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */
@@ -70,7 +71,7 @@ public class ShoppingListsFragment extends Fragment {
         /**
          * Create Firebase references
          */
-        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_PROPERTY_LIST_NAME);
+        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child("activeList");
 
         /**
          * Add ValueEventListeners to Firebase references
@@ -79,15 +80,17 @@ public class ShoppingListsFragment extends Fragment {
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //TODO the code below is old. Change it to work with your new ShoppingList POJO.
+                // You can use getValue to deserialize the data at dataSnapshot
+                // into a ShoppingList.
+                ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
 
-                // You can get the text using getValue. Since the DataSnapshot is of the exact
-                // data you asked for (the node listName), when you use getValue you know it
-                // will return a String.
-                String listName = (String) dataSnapshot.getValue();
-                // Now take the TextView for the list name
-                // and set it's value to listName.
-                mTextViewListName.setText(listName);
+                // If there was no data at the location we added the listener, then
+                // shoppingList will be null.
+                if (shoppingList != null) {
+                    // If there was data, take the TextViews and set the appropriate values.
+                    mTextViewListName.setText(shoppingList.getListName());
+                    mTextViewListOwner.setText(shoppingList.getOwner());
+                }
             }
 
             @Override
@@ -120,9 +123,8 @@ public class ShoppingListsFragment extends Fragment {
      */
     private void initializeScreen(View rootView) {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
-        // Get the TextView in the single_active_list layout
-        // that has the id text_view_list_name
+        // Get the TextViews in the single_active_list layout for list name, edit time and owner
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
-        // TODO get the view in single_active_list for the owner (aka the creator of the list)
+        mTextViewListOwner = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
     }
 }
