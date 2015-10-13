@@ -60,6 +60,10 @@ public class ShoppingListsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         initializeScreen(rootView);
 
+        // TODO Create a Firebase reference
+        // TODO Attach a listener to that reference to get the data stored at your root node's
+        // listName node.
+
         /**
          * Set interactive bits, such as click events and adapters
          */
@@ -84,5 +88,7 @@ public class ShoppingListsFragment extends Fragment {
      */
     private void initializeScreen(View rootView) {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
+        // TODO Make a new TextView instance variable that stores the TextView for
+        // name in the single_active_list.xml layout.
     }
 }
