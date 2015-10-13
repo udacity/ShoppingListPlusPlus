@@ -91,6 +91,8 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
+        // TODO the code below is old. Change it to work with your new ShoppingList POJO.
+
         // Get the reference to the root node in Firebase
         Firebase ref = new Firebase(Constants.FIREBASE_URL);
         // Get the string that the user entered into the EditText

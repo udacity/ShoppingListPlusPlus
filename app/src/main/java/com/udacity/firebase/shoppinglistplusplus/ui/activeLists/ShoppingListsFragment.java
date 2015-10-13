@@ -79,6 +79,8 @@ public class ShoppingListsFragment extends Fragment {
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //TODO the code below is old. Change it to work with your new ShoppingList POJO.
+
                 // You can get the text using getValue. Since the DataSnapshot is of the exact
                 // data you asked for (the node listName), when you use getValue you know it
                 // will return a String.
@@ -121,5 +123,6 @@ public class ShoppingListsFragment extends Fragment {
         // Get the TextView in the single_active_list layout
         // that has the id text_view_list_name
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
+        // TODO get the view in single_active_list for the owner (aka the creator of the list)
     }
 }
