@@ -17,6 +17,9 @@ import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
+
+import java.util.Date;
 
 
 /**
@@ -27,6 +30,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 public class ShoppingListsFragment extends Fragment {
     private ListView mListView;
     private TextView mTextViewListName, mTextViewListOwner;
+    private TextView mTextViewEditTime;
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */
@@ -63,7 +67,7 @@ public class ShoppingListsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /**
-         * Initalize UI elements
+         * Initialize UI elements
          */
         View rootView = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         initializeScreen(rootView);
@@ -90,6 +94,14 @@ public class ShoppingListsFragment extends Fragment {
                     // If there was data, take the TextViews and set the appropriate values.
                     mTextViewListName.setText(shoppingList.getListName());
                     mTextViewListOwner.setText(shoppingList.getOwner());
+                    if (shoppingList.getTimestampLastChanged() != null) {
+                        mTextViewEditTime.setText(
+                                Utils.SIMPLE_DATE_FORMAT.format(
+                                        new Date(shoppingList.getTimestampLastChangedLong())));
+                    } else {
+                        mTextViewEditTime.setText("");
+                    }
+
                 }
             }
 
@@ -126,5 +138,6 @@ public class ShoppingListsFragment extends Fragment {
         // Get the TextViews in the single_active_list layout for list name, edit time and owner
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
         mTextViewListOwner = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
+        mTextViewEditTime = (TextView) rootView.findViewById(R.id.text_view_edit_time);
     }
 }

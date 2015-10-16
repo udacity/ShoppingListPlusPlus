@@ -1,0 +1,557 @@
+commit f73d6708fe2217b1dd19cd0a088e45e0f2c15147 (HEAD, origin/master, master)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 23:17:43 2016 -0800
+
+    Final Commit Draft
+
+commit 017ad9657501d79bd5625702c2e80f69f0ad0bf5
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 21:54:18 2016 -0800
+
+    5.14 Checking for List Access - Solution
+
+commit f164b71c31cd08a18879524b74356eecd459d026
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 21:52:53 2016 -0800
+
+    5.13 Checking for List Access - Quiz
+
+commit b195cce101d5715a33b121898476d4450fa5a4ee
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 17:40:27 2016 -0800
+
+    5.12 UID Email Mapping - Solution
+
+commit 16b5c207f33f0b44aad6a3453aaa76e0b975b2bb
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 17:36:32 2016 -0800
+
+    5.11 UID Email Mapping - Quiz
+
+commit ed5316c5265dc7c1d608e28253702a0786a04739
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 11:48:10 2016 -0800
+
+    5.10 Write the User Read Rule - Solution
+
+commit c52715747f7572799df45988ccff8399d9760f44
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 11:18:24 2016 -0800
+
+    5.09 Write the User Read Rule - Quiz
+
+commit 43fca4cae34f2275abb515fd7b9ad672c9a9546c
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Jan 9 16:33:21 2016 -0800
+
+    5.08 Finish the Validate Rules - Solution
+
+commit 8b24de971709be9c2d73373096a59d82d1bdc832
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 09:02:43 2016 -0800
+
+    5.07 Finish the Validate Rules - Quiz
+
+commit 7aa5c8279276218d10b5d3c2373f97a9548abc8a
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Jan 7 08:49:52 2016 -0800
+
+    5.06 Validation for Shopping List Items - Solution
+
+commit f6726fba279b867d5500f53568b750191949f661
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Jan 9 16:32:03 2016 -0800
+
+    5.05 Validation for Shopping List Items - Quiz
+
+commit 62e808cdb2daee7c9c7331d649b8453350f5993f
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Jan 9 16:38:16 2016 -0800
+
+    5.04 Basic Rule Syntax - Solution
+
+commit 513f4f4f87eeba5895a6e411bcab87342cce0af1
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Jan 9 16:23:22 2016 -0800
+
+    5.03 Basic Rule Syntax - Quiz
+
+commit 98ba481e2e4ea342c6ac0265a989c5d14bc651de
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Jan 6 16:19:26 2016 -0800
+
+    5.02 Simple Off-line - Solution
+
+commit b2fb01391a8a4e7dd52418072ce99d8a866ab460
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Jan 6 16:18:38 2016 -0800
+
+    5.01 Simple Off-line - Quiz
+
+commit 3f85620966090b050683a4ac40fc037857c319ed
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Jan 6 16:14:19 2016 -0800
+
+    5.00 Version 0.5 Start Code
+
+commit dbf78669f51ed7dddc191c6e9b3796327d2736df (origin/4.16_oyo_sort_by_last_edited_timestamp, live_code/master, live_code/4.16_oyo_sort_by_last_edited_timestamp, 4.16_oyo_sort_by_last_edited_timestamp)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 21:44:20 2015 -0800
+
+    4.16 OYO Sort By Last Edited Timestamp
+
+commit 157fbf8d2535ebdfef3522e9c47af1df164eeab3 (origin/4.15_oyo_cleanup_friendadapter, live_code/4.15_oyo_cleanup_friendadapter, 4.15_oyo_cleanup_friendadapter)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 21:30:54 2015 -0800
+
+    4.15 OYO Cleanup FriendAdapter
+
+commit 9ed73f8e699e7e1293c120cce75722f9aaacddb7 (origin/4.14_searching-solution, live_code/4.14_searching-solution, 4.14_searching-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 3 19:23:58 2015 -0800
+
+    4.14 Searching - Solution
+
+commit 2dc7e1b492884bcee683f2cdfad2097660441f8c (origin/4.13_searching-quiz, live_code/4.13_searching-quiz, 4.13_searching-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 21:18:11 2015 -0800
+
+    4.13 Searching - Quiz
+
+commit eb03b065094ec616f3f4636b2705b915a6f13133 (origin/4.12_implementing_sharing-solution, live_code/4.12_implementing_sharing-solution, 4.12_implementing_sharing-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Dec 4 15:44:08 2015 -0800
+
+    4.12 Implementing Sharing - Solution
+
+commit c50d2fd59957e4cca7c66d48669b65ff0f6bfd04 (origin/4.11_implementing_sharing-quiz, live_code/4.11_implementing_sharing-quiz, 4.11_implementing_sharing-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 20:22:10 2015 -0800
+
+    4.11 Implementing Sharing - Quiz
+
+commit 818ad56c4ba566dd16c64fbd2cd30d5d99d661ef (origin/4.10_adding_to_the_share_list-solution, live_code/4.10_adding_to_the_share_list-solution, 4.10_adding_to_the_share_list-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 19:37:15 2015 -0800
+
+    4.10 Adding to the Share List - Solution
+
+commit a34cd1d46c59966c61f68daa6b7c674c732165c9 (origin/4.09_adding_to_the_share_list-quiz, live_code/4.09_adding_to_the_share_list-quiz, 4.09_adding_to_the_share_list-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 16 17:35:55 2015 -0800
+
+    4.09 Adding to the Share List - Quiz
+
+commit 0d3e72f571009bd6f27e419d13c9e719a4b46263 (origin/4.08_user_friends-solution, live_code/4.08_user_friends-solution, 4.08_user_friends-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 6 15:23:42 2015 -0800
+
+    4.08 User Friends - Solution
+
+commit bfbcb530b2e6f24d456b192e8f53b8a5d5f76426 (origin/4.07_user_friends-quiz, live_code/4.07_user_friends-quiz, 4.07_user_friends-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 3 15:59:43 2015 -0800
+
+    4.07 User Friends - Quiz
+
+commit 11dd8b0d5008cde5ee8aa72fe5d34d085112b2f5 (origin/4.06_efficiency_at_scale_refactor-solution, live_code/4.06_efficiency_at_scale_refactor-solution, 4.06_efficiency_at_scale_refactor-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Dec 4 15:40:54 2015 -0800
+
+    4.06 Efficiency at Scale Refactor - Solution
+
+commit dd279a16c110a448a2ac44c0ff1827edd6aa1134 (origin/4.05_efficiency_at_scale_refactor-quiz, live_code/4.05_efficiency_at_scale_refactor-quiz, 4.05_efficiency_at_scale_refactor-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 3 14:30:07 2015 -0800
+
+    4.05 Efficiency at Scale Refactor - Quiz
+
+commit 45f0a4ed1fc4b52a14101c6ee5b1db97c5814100 (origin/4.04_separate_bought_and_unbought-solution, live_code/4.04_separate_bought_and_unbought-solution, 4.04_separate_bought_and_unbought-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 3 11:25:23 2015 -0800
+
+    4.04 Separate Bought And Unbought - Solution
+
+commit 9f363276b2c86461f5bb815f511101a40b4d4408 (origin/4.03_separate_bought_and_unbought-quiz, live_code/4.03_separate_bought_and_unbought-quiz, 4.03_separate_bought_and_unbought-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 3 11:27:52 2015 -0800
+
+    4.03 Separate Bought And Unbought - Quiz
+
+commit 09aaeef46fb0abde03d8b8186102f32625f4057f (origin/4.02_sorting_with_orderby-solution, live_code/4.02_sorting_with_orderby-solution, 4.02_sorting_with_orderby-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Dec 9 17:16:39 2015 -0800
+
+    4.02 Sorting with orderBy - Solution
+
+commit b887ebb60c2da849e07f3188166b47c09f7a0b16 (origin/4.01_sorting_with_orderby-quiz, live_code/4.01_sorting_with_orderby-quiz, 4.01_sorting_with_orderby-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 13 13:09:05 2015 -0800
+
+    4.01 Sorting with orderBy - Quiz
+
+commit 730bfdb9bda622778f4eebab78bb1b1244d3128c (origin/4.00_version_0.4_start_code, live_code/4.00_version_0.4_start_code, 4.00_version_0.4_start_code)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 2 18:05:21 2015 -0800
+
+    4.00 Version 0.4 Start Code
+
+commit 65fc9bbaa16c692e19a9ce2d69db64c02c6e56fc (origin/3.27_oyo_restore_signed_in_session, live_code/3.27_oyo_restore_signed_in_session, 3.27_oyo_restore_signed_in_session)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 13:16:58 2015 -0800
+
+    3.27 OYO Restore Signed In Session
+
+commit 927144e35183276422568663c0cf2af45a1cd2a9 (origin/3.26_oyo_permissions_for_items, live_code/3.26_oyo_permissions_for_items, 3.26_oyo_permissions_for_items)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Dec 9 17:15:21 2015 -0800
+
+    3.26 OYO Permissions for Items
+
+commit 012d7d95ac6172f38a5e2e88aecb06a0905d016d (origin/3.25_oyo_list_fragment_who_is_shopping, live_code/3.25_oyo_list_fragment_who_is_shopping, 3.25_oyo_list_fragment_who_is_shopping)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Nov 4 23:03:53 2015 -0800
+
+    3.25 OYO List Fragment Who is Shopping
+
+commit bbb77aef88f92ae6282f477a9efe76e9f27c4ab1 (origin/3.24_who_is_shopping-solution, live_code/3.24_who_is_shopping-solution, 3.24_who_is_shopping-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 18:11:23 2015 -0700
+
+    3.24 Who is Shopping - Solution
+
+commit fc0abef44ae84319ec0849d4dfbea411a54d345c (origin/3.23_who_is_shopping-quiz, live_code/3.23_who_is_shopping-quiz, 3.23_who_is_shopping-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 18:10:50 2015 -0700
+
+    3.23 Who is Shopping - Quiz
+
+commit 5689bf6024bdde9ae99f19b9d7d9a668f4de4e02 (origin/3.22_shopping_mode-solution, live_code/3.22_shopping_mode-solution, 3.22_shopping_mode-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 6 15:18:42 2015 -0800
+
+    3.22 Shopping Mode - Solution
+
+commit 77416aa254038680d6f91655d490aa15f4f598d1 (origin/3.21_shopping_mode-quiz, live_code/3.21_shopping_mode-quiz, 3.21_shopping_mode-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 17:51:17 2015 -0700
+
+    3.21 Shopping Mode - Quiz
+
+commit edd2d93fc4809a937fdb37315e25c62c0ac42341 (origin/3.20_check_off_items-solution, live_code/3.20_check_off_items-solution, 3.20_check_off_items-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 15:55:21 2015 -0700
+
+    3.20 Check Off Items - Solution
+
+commit fe5437ddbbe1daed00cb1b343853c5393b0df6a3 (origin/3.19_check_off_items-quiz, live_code/3.19_check_off_items-quiz, 3.19_check_off_items-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 15:50:34 2015 -0700
+
+    3.19 Check Off Items - Quiz
+
+commit f559f7373316a3ac338b9049483b7448142d020c (origin/3.18_reset_password_login_flow-solution, live_code/3.18_reset_password_login_flow-solution, 3.18_reset_password_login_flow-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 9 23:23:35 2015 -0800
+
+    3.18 Reset Password Login Flow - Solution
+
+commit 777f4bf9c5d0736609cc08ebb487d3dc24263a37 (origin/3.17_reset_password_login_flow-quiz, live_code/3.17_reset_password_login_flow-quiz, 3.17_reset_password_login_flow-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 15:08:14 2015 -0700
+
+    3.17 Reset Password Login Flow - Quiz
+
+commit 337a9c69bd4272d9b7aa43faa2e53d402d07954e (origin/3.16_owner_list_permissions-solution, live_code/3.16_owner_list_permissions-solution, 3.16_owner_list_permissions-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 12:53:42 2015 -0700
+
+    3.16 Owner List Permissions - Solution
+
+commit ca76319459ce133e0e2027ee300dfd876b1e8957 (origin/3.15_owner_list_permissions-quiz, live_code/3.15_owner_list_permissions-quiz, 3.15_owner_list_permissions-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 12:52:14 2015 -0700
+
+    3.15 Owner List Permissions - Quiz
+
+commit 85d3a19c3f73da5fc5e6098c3ae9bc23354aeb7d (origin/3.14_logging_out_and_kicking_off-solution, live_code/3.14_logging_out_and_kicking_off-solution, 3.14_logging_out_and_kicking_off-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Dec 9 17:09:26 2015 -0800
+
+    3.14 Logging Out and Kicking Off - Solution
+
+commit 7ef2cb453da6eaf6e80060bd52f803fe72e12869 (origin/3.13_logging_out_and_kicking_off-quiz, live_code/3.13_logging_out_and_kicking_off-quiz, 3.13_logging_out_and_kicking_off-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 11:33:48 2015 -0800
+
+    3.13 Logging Out and Kicking Off - Quiz
+
+commit 680c539a0a4a52e8ac758fdcb5530342c29775ba (origin/3.12_use_owner_data-solution, live_code/3.12_use_owner_data-solution, 3.12_use_owner_data-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 11:30:54 2015 -0800
+
+    3.12 Use Owner Data - Solution
+
+commit 0df137b42afac31e902205e4fdcafda52710b3a4 (origin/3.11_use_owner_data-quiz, live_code/3.11_use_owner_data-quiz, 3.11_use_owner_data-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 11:23:21 2015 -0800
+
+    3.11 Use Owner Data - Quiz
+
+commit 934addabb5b0f370a255e0567237757093f2cac3 (origin/3.10_user_data_with_google-solution, live_code/3.10_user_data_with_google-solution, 3.10_user_data_with_google-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 11:21:47 2015 -0800
+
+    3.10 User Data with Google - Solution
+
+commit 71ffeec233fca423f2cdabdb43b655e7b1e857d3 (origin/3.09_user_data_with_google-quiz, live_code/3.09_user_data_with_google-quiz, 3.09_user_data_with_google-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 9 15:27:19 2015 -0800
+
+    3.09 User Data with Google - Quiz
+
+commit c67c80adf61c5fdd14b10255bf88818bf6f4ef23 (origin/3.08_user_data_with_email/password-solution, live_code/3.08_user_data_with_email/password-solution, 3.08_user_data_with_email/password-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 9 23:09:02 2015 -0800
+
+    3.08 User Data with Email/Password - Solution
+
+commit 3250a904b35490d9bff585dfe1f5b501174ea40d (origin/3.07_user_data_with_email/password-quiz, live_code/3.07_user_data_with_email/password-quiz, 3.07_user_data_with_email/password-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Nov 9 15:37:33 2015 -0800
+
+    3.07 User Data with Email/Password - Quiz
+
+commit 9d3a605f4ded28ddc023e2996a29bbc2efca832b (origin/3.06_add_google_login-solution, live_code/3.06_add_google_login-solution, 3.06_add_google_login-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 01:57:12 2015 -0700
+
+    3.06 Add Google Login - Solution
+
+commit b20f35c88427d43b2110343e7966dbee49190681 (origin/3.05_add_google_login-quiz, live_code/3.05_add_google_login-quiz, 3.05_add_google_login-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 01:52:26 2015 -0700
+
+    3.05 Add Google Login - Quiz
+
+commit 143a3675f6afb5134bcac87a69d84a2589622beb (origin/3.04_logging_in-solution, live_code/3.04_logging_in-solution, 3.04_logging_in-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 12:02:27 2015 -0700
+
+    3.04 Logging In - Solution
+
+commit 1f847cc1ca2e7e86ecfc66d5a6086fc2be238682 (origin/3.03_logging_in-quiz, live_code/3.03_logging_in-quiz, 3.03_logging_in-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 10:03:19 2015 -0700
+
+    3.03 Logging In - Quiz
+
+commit a6714c8e97feef0df1e596734031060d898327f7 (origin/3.02_creating_a_user-solution, live_code/3.02_creating_a_user-solution, 3.02_creating_a_user-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Oct 28 23:49:01 2015 -0700
+
+    3.02 Creating a User - Solution
+
+commit ca26c900e6e237d7c9d59be6a459426eaadd8ba0 (origin/3.01_creating_a_user-quiz, live_code/3.01_creating_a_user-quiz, 3.01_creating_a_user-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Oct 28 23:47:07 2015 -0700
+
+    3.01 Creating a User - Quiz
+
+commit e603c52f4c0a70febb7394793b6011fc63270cc8 (origin/3.00_version_0.3_start_code, live_code/3.00_version_0.3_start_code, 3.00_version_0.3_start_code)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 29 01:19:02 2015 -0700
+
+    3.00 Version 0.3 Start Code
+
+commit ba24e90cd2b58b0b2fa71914e3420bbe74d53017 (origin/2.19_oyo_edit_and_remove_list, live_code/2.19_oyo_edit_and_remove_list, 2.19_oyo_edit_and_remove_list)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Dec 9 17:05:29 2015 -0800
+
+    2.19 OYO Edit and Remove List
+
+commit 5a53a2ff69344d1971b590226a537e44eeac2789 (origin/2.18_remove_event_listeners-solution, live_code/2.18_remove_event_listeners-solution, 2.18_remove_event_listeners-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 15:45:29 2015 -0700
+
+    2.18 Remove Event Listeners - Solution
+
+commit 85645dbae9de1bddc391037e0ae949f243a28902 (origin/2.17_remove_event_listeners-quiz, live_code/2.17_remove_event_listeners-quiz, 2.17_remove_event_listeners-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 15:43:52 2015 -0700
+
+    2.17 Remove Event Listeners - Quiz
+
+commit 799b400c1fc60f808c4a64ecac7207e6512c1d70 (origin/2.16_add_items_to_the_list_detail-solution, live_code/2.16_add_items_to_the_list_detail-solution, 2.16_add_items_to_the_list_detail-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Oct 23 20:27:05 2015 -0700
+
+    2.16 Add Items to the List Detail - Solution
+
+commit fa14466776449477019ac31eafe21ae6e1bd3c9c (origin/2.15_add_items_to_the_list_detail-quiz, live_code/2.15_add_items_to_the_list_detail-quiz, 2.15_add_items_to_the_list_detail-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 6 15:11:01 2015 -0800
+
+    2.15 Add Items to the List Detail - Quiz
+
+commit 07753fbcade3356a57dafddf9d80166195a0fd2a (origin/2.14_items-solution, live_code/2.14_items-solution, 2.14_items-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 6 15:10:21 2015 -0800
+
+    2.14 Items - Solution
+
+commit 6d1caf83e788a6f37f7dba750a0a3f44ad0a27db (origin/2.13_items-quiz, live_code/2.13_items-quiz, 2.13_items-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Oct 21 14:53:12 2015 -0700
+
+    2.13 Items - Quiz
+
+commit ce0217d26986e60d30a2ac27f186173a9d4610c8 (origin/2.12_removing_a_shopping_list-solution, live_code/2.12_removing_a_shopping_list-solution, 2.12_removing_a_shopping_list-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 00:25:13 2015 -0700
+
+    2.12 Removing A Shopping List - Solution
+
+commit d2f5a8395d5139acb5f885fd9a88a54e5ca36335 (origin/2.11_removing_a_shopping_list-quiz, live_code/2.11_removing_a_shopping_list-quiz, 2.11_removing_a_shopping_list-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 00:22:08 2015 -0700
+
+    2.11 Removing A Shopping List - Quiz
+
+commit a545d3c7eb6e3e3747d7437a4f2424f719f05757 (origin/2.10_send_over_the_push_id-solution, live_code/2.10_send_over_the_push_id-solution, 2.10_send_over_the_push_id-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Nov 6 15:03:11 2015 -0800
+
+    2.10 Send Over The Push ID - Solution
+
+commit 326da1ce5522d1802905c35d597dbf16c4287f0d (origin/2.09_send_over_the_push_id_spec-quiz, live_code/2.09_send_over_the_push_id_spec-quiz, 2.09_send_over_the_push_id_spec-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Nov 4 19:59:04 2015 -0800
+
+    2.09 Send Over The Push ID Spec - Quiz
+
+commit d2fd896026b7322251f744ebb7155e8b263e25e4 (origin/2.08_the_firebase_list_adapter_repo-solution, live_code/2.08_the_firebase_list_adapter_repo-solution, 2.08_the_firebase_list_adapter_repo-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Nov 4 23:24:09 2015 -0800
+
+    2.08 The Firebase List Adapter Repo - Solution
+
+commit c2bf3f0a50fd727aa68a8bc45977872335bdc82d (origin/2.07_the_firebase_list_adapter_repo-quiz, live_code/2.07_the_firebase_list_adapter_repo-quiz, 2.07_the_firebase_list_adapter_repo-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Dec 9 16:59:51 2015 -0800
+
+    2.07 The Firebase List Adapter Repo - Quiz
+
+commit 926a3a3d58cb5a7d20b65e9dda8f102a304756a7 (origin/2.06_add_a_new_shopping_list-solution, live_code/2.06_add_a_new_shopping_list-solution, 2.06_add_a_new_shopping_list-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 00:14:41 2015 -0700
+
+    2.06 Add a New Shopping List - Solution
+
+commit ed275c163308fea4e74add0fe18fab2b2e93328f (origin/2.05_add_a_new_shopping_list-quiz, live_code/2.05_add_a_new_shopping_list-quiz, 2.05_add_a_new_shopping_list-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 22 00:11:37 2015 -0700
+
+    2.05 Add a New Shopping List - Quiz
+
+commit d4ef4d451e65bda232ade2cecf6653ed346a4866 (origin/2.04_edit_shopping_list_name-solution, live_code/2.04_edit_shopping_list_name-solution, 2.04_edit_shopping_list_name-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Fri Oct 23 19:53:06 2015 -0700
+
+    2.04 Edit Shopping List Name - Solution
+
+commit 105337c7f73f625708644bd1015845e1579a214d (origin/2.03_edit_shopping_list_name-quiz, live_code/2.03_edit_shopping_list_name-quiz, 2.03_edit_shopping_list_name-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Oct 20 23:30:00 2015 -0700
+
+    2.03 Edit Shopping List Name - Quiz
+
+commit 5f7375eb924970458da19903cf2871bc7e4c10e4 (origin/2.02_the_detail_screen-solution, live_code/2.02_the_detail_screen-solution, 2.02_the_detail_screen-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Oct 20 22:57:15 2015 -0700
+
+    2.02 The Detail Screen - Solution
+
+commit 6fc66ce3bf1aa6c5ee4f75cc58a1a6b5e6bcacbc (origin/2.01_the_detail_screen-quiz, live_code/2.01_the_detail_screen-quiz, 2.01_the_detail_screen-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Oct 20 22:55:00 2015 -0700
+
+    2.01 The Detail Screen - Quiz
+
+commit 26891fcdff927e23c9decbb89354b71891fc3b68 (origin/2.00_version_0.2_start_code, live_code/2.00_version_0.2_start_code, 2.00_version_0.2_start_code)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Oct 20 21:12:02 2015 -0700
+
+    2.00 Version 0.2 Start Code
+
+commit 762edecb9ea16fbca78d8e61b9b5aebb9ad6cd1e (origin/1.09_oyo_add_an_edit_time_field_using_servervalue.timestamp, live_code/1.09_oyo_add_an_edit_time_field_using_servervalue.timestamp, 1.09_oyo_add_an_edit_time_field_using_servervalue.timestamp)
+Author: Lyla <lyla@udacity.com>
+Date:   Thu Oct 15 22:31:39 2015 -0700
+
+    1.09 OYO Add an edit time field using ServerValue.TIMESTAMP
+
+commit ebe9689ecf42afc595860392beaa0adb948dd418 (origin/1.08_plain_old_java_objects_in_firebase-solution, live_code/1.08_plain_old_java_objects_in_firebase-solution, 1.08_plain_old_java_objects_in_firebase-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 23:28:35 2015 -0700
+
+    1.08 Plain Old Java Objects in Firebase - Solution
+
+commit 05d3f80c426f8a94ba4285ff21630cf28729dd2c (origin/1.07_plain_old_java_objects_in_firebase-quiz, live_code/1.07_plain_old_java_objects_in_firebase-quiz, 1.07_plain_old_java_objects_in_firebase-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 23:12:05 2015 -0700
+
+    1.07 Plain Old Java Objects in Firebase - Quiz
+
+commit 446d47b7337652ec41ddac7fa22d443728bb8ec7 (origin/1.06_read_your_first_firebase_data-solution, live_code/1.06_read_your_first_firebase_data-solution, 1.06_read_your_first_firebase_data-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 22:59:22 2015 -0700
+
+    1.06 Read Your First Firebase Data - Solution
+
+commit 70c98e063933f978866d1c3958a2b2d43367f1c4 (origin/1.05_read_your_first_firebase_data-quiz, live_code/1.05_read_your_first_firebase_data-quiz, 1.05_read_your_first_firebase_data-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 22:47:05 2015 -0700
+
+    1.05 Read Your First Firebase Data - Quiz
+
+commit ba6185565975fade22516c79bcbab2db3ee36976 (origin/1.04_write_your_first_firebase_data-solution, live_code/1.04_write_your_first_firebase_data-solution, 1.04_write_your_first_firebase_data-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 19:27:21 2015 -0700
+
+     1.04 Write Your First Firebase Data - Solution
+
+commit 8b3da2b71dae0ac203e990331b8c1cedf2b33eae (origin/1.03_write_your_first_firebase_data-quiz, live_code/1.03_write_your_first_firebase_data-quiz, 1.03_write_your_first_firebase_data-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 18:41:37 2015 -0700
+
+    1.03 Write Your First Firebase Data - Quiz
+
+commit 70d1011873f8df57df8655c0ca93f0650aed5a17 (origin/1.02_connect_firebase_to_your_app-solution, live_code/1.02_connect_firebase_to_your_app-solution, 1.02_connect_firebase_to_your_app-solution)
+Author: Lyla <lyla@udacity.com>
+Date:   Tue Nov 10 10:38:07 2015 -0800
+
+    1.02 Connect Firebase to Your App - Solution
+
+commit 08e22d21529dfb9b863e117d0550bbfb3877a3b8 (origin/1.01_connect_firebase_to_your_app-quiz, live_code/1.01_connect_firebase_to_your_app-quiz, 1.01_connect_firebase_to_your_app-quiz)
+Author: Lyla <lyla@udacity.com>
+Date:   Wed Oct 28 21:59:36 2015 -0700
+
+    1.01 Connect Firebase to Your App - Quiz
+
+commit 53647b4a442820a64479b9597493190929a7ae3f (origin/1.00_version_0.1_start_code, live_code/1.00_version_0.1_start_code, 1.00_version_0.1_start_code)
+Author: Lyla <lyla@udacity.com>
+Date:   Mon Oct 12 17:56:12 2015 -0700
+
+    1.00 Version 0.1 Start Code
+
+commit d65940e15a745a86e291e9289c4de206cd3dc103
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Oct 10 19:31:04 2015 -0700
+
+    Write the README
+
+commit 9344ea48d8f75c618c53814fc49120daee5d3d5e (origin/initial_commit)
+Author: Lyla <lyla@udacity.com>
+Date:   Sat Oct 10 19:27:47 2015 -0700
+
+    Initial commit
