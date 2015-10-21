@@ -18,6 +18,8 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     public static EditListNameDialogFragment newInstance(ShoppingList shoppingList) {
         EditListNameDialogFragment editListNameDialogFragment = new EditListNameDialogFragment();
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_list);
+        // TODO add any values you need here from the shopping list to make this change.
+        // Once you put a value in the bundle, it available to you in onCreate
         editListNameDialogFragment.setArguments(bundle);
         return editListNameDialogFragment;
     }
@@ -28,6 +30,9 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO Extract any arguments you put in the bundle when the newInstance method
+        // created the dialog. You can store these in an instance variable so that they
+        // are available to you.
     }
 
 
@@ -38,6 +43,9 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
          * superclass method that creates the dialog
          **/
         Dialog dialog = super.createDialogHelper(R.string.positive_button_edit_item);
+        // TODO You can use the helper method in the superclass I made (EditListDialogFragment)
+        // called helpSetDefaultValueEditText. This will allow you to set what text the
+        // user sees when the dialog opens.
 
         return dialog;
     }
@@ -46,6 +54,9 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
      * Changes the list name in all copies of the current list
      */
     protected void doListEdit() {
+        // TODO Do the actual edit operation here.
+        // Remember, you need to update the timestampLastChanged for
+        // the shopping list.
 
     }
 }
