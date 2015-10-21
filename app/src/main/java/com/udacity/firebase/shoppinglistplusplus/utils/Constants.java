@@ -18,11 +18,14 @@ public final class Constants {
      */
     public static final String FIREBASE_PROPERTY_LIST_NAME = "listName";
     public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
+    // TODO Consider adding and using a constant here for the key where your lists are stored
 
+    
     /**
      * Constants for Firebase URL
      */
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+    // TODO Consider adding a constant for the URL for your lists
 
 
     /**

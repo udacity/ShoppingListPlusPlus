@@ -121,6 +121,9 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
+        // TODO Add an OnClick listener here so that when the user clicks on the
+        // mTextViewListName it opens up an instance of ActiveListDetailsActivity
+
         return rootView;
     }
 

@@ -31,6 +31,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
          */
         initializeScreen();
 
+        // TODO Add the Firebase code here that will set the appropriate title for the
+        // detail screen using setTitle and passing in the name of the current
+        // shopping list. You might want to save this shopping list as well.
+        // You can but the invalidateOptionsMenu call inside of the same block of code.
+        // If the shopping list doesn't exist, close the activity using finish()
+
         /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
         invalidateOptionsMenu();
 
