@@ -3,23 +3,31 @@ package com.udacity.firebase.shoppinglistplusplus.ui.activeListDetails;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
+import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 /**
  * Represents the details screen for the selected shopping list
  */
 public class ActiveListDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
+    private Firebase mActiveListRef;
     private ListView mListView;
     private ShoppingList mShoppingList;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -27,18 +35,56 @@ public class ActiveListDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_active_list_details);
 
         /**
+         * Create Firebase references
+         */
+        mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+
+
+        /**
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
 
-        // TODO Add the Firebase code here that will set the appropriate title for the
-        // detail screen using setTitle and passing in the name of the current
-        // shopping list. You might want to save this shopping list as well.
-        // You can but the invalidateOptionsMenu call inside of the same block of code.
-        // If the shopping list doesn't exist, close the activity using finish()
+        /**
+         * Save the most recent version of current shopping list into mShoppingList instance
+         * variable an update the UI to match the current list.
+         */
+        mActiveListRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
 
-        /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
-        invalidateOptionsMenu();
+                /**
+                 * Saving the most recent version of current shopping list into mShoppingList if present
+                 * finish() the activity if the list is null (list was removed or unshared by it's owner
+                 * while current user is in the list details activity)
+                 */
+                ShoppingList shoppingList = snapshot.getValue(ShoppingList.class);
+
+                if (shoppingList == null) {
+                    finish();
+                    /**
+                     * Make sure to call return, otherwise the rest of the method will execute,
+                     * even after calling finish.
+                     */
+                    return;
+                }
+                mShoppingList = shoppingList;
+
+                /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
+                invalidateOptionsMenu();
+
+                /* Set title appropriately. */
+                setTitle(shoppingList.getListName());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.e(LOG_TAG,
+                        getString(R.string.log_error_the_read_failed) +
+                                firebaseError.getMessage());
+            }
+        });
+
 
         /**
          * Set up click listeners for interaction.
