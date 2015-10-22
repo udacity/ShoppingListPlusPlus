@@ -31,10 +31,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private ListView mListView;
     private String mListId;
     private ShoppingList mShoppingList;
+    private ValueEventListener mActiveListRefListener;
 
-
-    //TODO Hint : The value event listener we want to make sure to detach is somewhere in
-    // this class.
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +78,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Save the most recent version of current shopping list into mShoppingList instance
          * variable an update the UI to match the current list.
          */
-        mActiveListRef.addValueEventListener(new ValueEventListener() {
+        mActiveListRefListener = mActiveListRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
@@ -203,6 +202,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         mActiveListItemAdapter.cleanup();
+        mActiveListRef.removeEventListener(mActiveListRefListener);
     }
 
     /**
