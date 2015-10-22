@@ -57,6 +57,8 @@ public class RemoveListDialogFragment extends DialogFragment {
     }
 
     private void removeList() {
+        // TODO Here is the method that is called when the user selects yes, they want to
+        // remove a list.
 
     }
 
