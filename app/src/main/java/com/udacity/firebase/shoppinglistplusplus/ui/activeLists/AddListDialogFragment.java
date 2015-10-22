@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.ServerValue;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+
+import java.util.HashMap;
 
 /**
  * Adds a new shopping list
@@ -92,22 +95,43 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-        // TODO This is where you add a shopping list.
-        // You'll need to change the code in this method around to properly
-        // add a shopping list so that you may have more than one.
-
-        // Get the reference to the root node in Firebase
-        Firebase ref = new Firebase(Constants.FIREBASE_URL);
         // Get the string that the user entered into the EditText and make an object with it
         // We'll use "Anonymous Owner" for the owner because we don't have user accounts yet
         String userEnteredName = mEditTextListName.getText().toString();
         String owner = "Anonymous Owner";
-        ShoppingList currentList = new ShoppingList(userEnteredName, owner);
 
-        // Go to the "activeList" child node of the root node.
-        // This will create the node for you if it doesn't already exist.
-        // Then using the setValue menu it will serialize the ShoppingList POJO
-        ref.child(Constants.FIREBASE_LOCATION_ACTIVE_LIST).setValue(currentList);
+        /**
+         * If EditText input is not empty
+         */
+        if (!userEnteredName.equals("")) {
+
+            /**
+             * Create Firebase references
+             */
+            Firebase listsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
+            Firebase newListRef = listsRef.push();
+
+            /* Save listsRef.push() to maintain same random Id */
+            final String listId = newListRef.getKey();
+
+            /**
+             * Set raw version of date to the ServerValue.TIMESTAMP value and save into
+             * timestampCreatedMap
+             */
+            HashMap<String, Object> timestampCreated = new HashMap<>();
+            timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+            /* Build the shopping list */
+            ShoppingList newShoppingList = new ShoppingList(userEnteredName, owner,
+                    timestampCreated);
+
+            /* Add the shopping list */
+            newListRef.setValue(newShoppingList);
+
+            /* Close the dialog fragment */
+            AddListDialogFragment.this.getDialog().cancel();
+        }
+
     }
 }
 
