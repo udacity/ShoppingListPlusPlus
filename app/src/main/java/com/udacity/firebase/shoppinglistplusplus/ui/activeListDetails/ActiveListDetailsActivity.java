@@ -33,6 +33,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private ShoppingList mShoppingList;
 
 
+    //TODO Hint : The value event listener we want to make sure to detach is somewhere in
+    // this class.
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
