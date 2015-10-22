@@ -12,6 +12,9 @@ public final class Constants {
      * where active lists are stored (ie "activeLists")
      */
     public static final String FIREBASE_LOCATION_ACTIVE_LIST = "activeList";
+    // TODO instead of using the location activeList, let's store the new lists under
+    // activeLists (plural). This will also keep the app from crashing since we're
+    // only updating the write portion.
 
     /**
      * Constants for Firebase object properties

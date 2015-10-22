@@ -92,6 +92,10 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
+        // TODO This is where you add a shopping list.
+        // You'll need to change the code in this method around to properly
+        // add a shopping list so that you may have more than one.
+
         // Get the reference to the root node in Firebase
         Firebase ref = new Firebase(Constants.FIREBASE_URL);
         // Get the string that the user entered into the EditText and make an object with it

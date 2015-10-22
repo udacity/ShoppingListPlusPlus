@@ -14,6 +14,8 @@ public class ShoppingList {
     private String listName;
     private String owner;
     private HashMap<String, Object> timestampLastChanged;
+    // TODO Now that we have more than one list, let's add an unchanging timestamp for when
+    // the list was created.
 
     /**
      * Required public constructor
