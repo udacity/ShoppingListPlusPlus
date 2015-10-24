@@ -17,6 +17,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
@@ -26,6 +27,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 public class ActiveListDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
     private Firebase mActiveListRef;
+    private ActiveListItemAdapter mActiveListItemAdapter;
     private ListView mListView;
     private String mListId;
     private ShoppingList mShoppingList;
@@ -35,9 +37,6 @@ public class ActiveListDetailsActivity extends BaseActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
-        // TODO Here is where you should set everything up for the adapter, much like you
-        // did with the ShoppingListsFragment class and the ActiveListAdapter.
-        // I've created the list item layout "single_active_list_item.xml" for you to use.
 
         /* Get the push ID from the extra passed by ShoppingListFragment */
         Intent intent = this.getIntent();
@@ -52,12 +51,28 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Create Firebase references
          */
         mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
+        Firebase listItemsRef = new Firebase(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
 
 
         /**
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
+
+
+        /**
+         * Setup the adapter
+         */
+        mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
+                R.layout.single_active_list_item, listItemsRef);
+        /* Create ActiveListItemAdapter and set to listView */
+        mListView.setAdapter(mActiveListItemAdapter);
+
+        /**
+         * Add ValueEventListeners to Firebase references
+         * to control get data and control behavior and visibility of elements
+         */
+
 
         /**
          * Save the most recent version of current shopping list into mShoppingList instance
@@ -185,6 +200,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mActiveListItemAdapter.cleanup();
     }
 
     /**
