@@ -74,7 +74,17 @@ public class CreateAccountActivity extends BaseActivity {
      * Create new account using Firebase email/password provider
      */
     public void onCreateAccountPressed(View view) {
-        
+        // TODO Start by doing a client side error check of the three values that the
+        // user entered. If any of the three values fail a check, you should stop
+        // this method.
+
+        // TODO Next, show the progress dialog by calling .show()
+
+        // TODO Make the new user in Firebase here. If the user was not successfully made
+        // either show a toast using show ErrorToast (if it was a more general problem)
+        // or highlight the TextView that was the problem.
+        // Regardless of success or failure, once Firebase responds you should close the
+        // progress dialog using .dismiss().
     }
 
     /**
@@ -84,14 +94,23 @@ public class CreateAccountActivity extends BaseActivity {
     }
 
     private boolean isEmailValid(String email) {
+        // TODO you should return whether or not the email is valid.
+        // This should check using android.util.Patterns.EMAIL_ADDRESS
+        // and show the user an error using TextView's .setError if not.
         return true;
     }
 
     private boolean isUserNameValid(String userName) {
+        // TODO You should return whether the entered username is valid.
+        // This should check whether something was entered
+        // and show the user an error using TextView's .setError if not.
         return true;
     }
 
     private boolean isPasswordValid(String password) {
+        // TODO You should return whether the entered password is valid.
+        // This should check whether the password is at least 6 characters long
+        // and show the user an error using TextView's .setError if not.
         return true;
     }
 

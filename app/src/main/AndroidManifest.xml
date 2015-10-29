@@ -34,7 +34,7 @@
         </activity>
 
         <activity android:name=".ui.login.LoginActivity">
-
+            <!-- TODO Place the intent filter here to launch the login activity -->
         </activity>
 
         <activity
