@@ -6,6 +6,7 @@ import java.util.HashMap;
  * Defines the data structure for User objects.
  */
 public class User {
+    // TODO Add a boolean to keep track of whether the user has logged in
     private String name;
     private String email;
     private HashMap<String, Object> timestampJoined;

@@ -98,6 +98,10 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // TODO Check to see whether SharedPreferences has an email set for someone trying
+        // to sign up. If it does, then:
+        //  1. Display that email
+        //  2. Clear the email from shared preferences
     }
 
     @Override
@@ -261,6 +265,16 @@ public class LoginActivity extends BaseActivity {
          * to be able to use it as a Firebase db key
          */
         mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
+
+        // TODO Using a boolean in the User class, check if the current person who's logging in
+        // has never logged in before. If they have not:
+        // Change the password to be the password they just typed in (which will be the reset
+        // password they got from their email). You do this to ensure the reset password will
+        // last more than 24 hours.
+        //
+        // If you're wondering what happens to users who do not log in 24 hours after they create
+        // an account, they are in fact locked out. This is an edge case that you can consider
+        // a way to solve.
     }
 
     /**

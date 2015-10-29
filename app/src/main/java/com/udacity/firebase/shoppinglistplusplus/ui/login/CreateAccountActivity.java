@@ -31,6 +31,9 @@ public class CreateAccountActivity extends BaseActivity {
     private static final String LOG_TAG = CreateAccountActivity.class.getSimpleName();
     private ProgressDialog mAuthProgressDialog;
     private Firebase mFirebaseRef;
+    // TODO Remove the password EditText from the layout and from this activity.
+    // Remember, we don't want the user to set their password (or at least not until
+    // they've verified they own the email).
     private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate;
     private String mUserName, mUserEmail, mPassword;
 
@@ -75,6 +78,7 @@ public class CreateAccountActivity extends BaseActivity {
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle(getResources().getString(R.string.progress_dialog_loading));
+        // TODO Change the R.string to progress_dialog_check_inbox
         mAuthProgressDialog.setMessage(getResources().getString(R.string.progress_dialog_creating_user_with_firebase));
         mAuthProgressDialog.setCancelable(false);
     }
@@ -95,6 +99,8 @@ public class CreateAccountActivity extends BaseActivity {
     public void onCreateAccountPressed(View view) {
         mUserName = mEditTextUsernameCreate.getText().toString();
         mUserEmail = mEditTextEmailCreate.getText().toString().toLowerCase();
+        // TODO Instead of using a user inputted value, you can generate a cryptographically
+        // strong random number password using the BigInteger and SecureRandom classes.
         mPassword = mEditTextPasswordCreate.getText().toString();
 
         /**
@@ -117,6 +123,13 @@ public class CreateAccountActivity extends BaseActivity {
         mFirebaseRef.createUser(mUserEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
+                // TODO Instead of what happens below, you should:
+                //  1.  Reset the user's password, therefore sending an email to them
+                //  2.  Store the email they signed up with in SharedPreferences, so that when
+                //      They go to the login page, it has the email there for them.
+                //  3.  Create the user in Firebase
+                //  4.  Open up the user's default email application for them
+
                 /* Dismiss the progress dialog */
                 mAuthProgressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
