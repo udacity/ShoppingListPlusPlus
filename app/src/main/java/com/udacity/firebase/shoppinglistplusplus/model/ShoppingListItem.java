@@ -6,6 +6,7 @@ package com.udacity.firebase.shoppinglistplusplus.model;
 public class ShoppingListItem {
     private String itemName;
     private String owner;
+    // TODO Add variables to keep track of bought and bought by whom status.
 
     /**
      * Required public constructor

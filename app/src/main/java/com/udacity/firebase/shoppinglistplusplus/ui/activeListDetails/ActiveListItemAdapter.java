@@ -51,7 +51,23 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
      */
     @Override
     protected void populateView(View view, final ShoppingListItem item, int position) {
+        // TODO Update populate view for the list of items. If an item is bought:
+        //  - It should have a strike through
+        //  - The remove trashcan should be invisible
+        //  - The name of who bought the item should be shown. If it was you,
+        //      The item should simply say "Bought by You" (Note: you will probably need
+        //      to get data from the database for this one)
+        // TODO if the item is NOT bought:
+        //  - There should be no strike through
+        //  - The trashcan should be visible
+        //  - There should be nothing about who bought the item
 
+        // TODO
+        // A strike through can be achieved with the following code:
+        //  textViewItemName.setPaintFlags(textViewItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        // It can be removed with:
+        //  textViewItemName.setPaintFlags(textViewItemName.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        
         ImageButton buttonRemoveItem = (ImageButton) view.findViewById(R.id.button_remove_item);
         TextView textViewMealItemName = (TextView) view.findViewById(R.id.text_view_active_list_item_name);
 

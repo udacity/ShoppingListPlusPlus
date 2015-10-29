@@ -153,6 +153,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
                 return false;
             }
         });
+
+        // TODO Add a normal click listener here which toggles the bought status of an item.
     }
 
     @Override
