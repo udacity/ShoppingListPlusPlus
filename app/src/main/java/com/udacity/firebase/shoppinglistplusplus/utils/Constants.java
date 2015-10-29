@@ -40,5 +40,9 @@ public final class Constants {
     public static final String KEY_LIST_ITEM_NAME = "ITEM_NAME";
     public static final String KEY_LIST_ITEM_ID = "LIST_ITEM_ID";
 
+    /**
+     * Constants for Firebase login
+     */
+    public static final String PASSWORD_PROVIDER = "password";
 
 }
