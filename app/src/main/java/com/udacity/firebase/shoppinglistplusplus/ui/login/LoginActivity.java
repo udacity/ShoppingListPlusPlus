@@ -133,8 +133,29 @@ public class LoginActivity extends BaseActivity {
      * Sign in with Password provider (used when user taps "Done" action on keyboard)
      */
     public void signInPassword() {
+        // TODO On the client side check that the user has entered something in both the
+        // email and password.
+
+        // TODO Show mAuthProgressDialog to let the user know you're logging in.
+
+        // TODO Use the Firebase method to attempt the actual log in
+
     }
 
+    // TODO You can either make an anonymous subclass or make an inner class here. Either
+    // way you will need to make a subclass of AuthResultHandler to react appropriately
+    // when you try to log a user in.
+    // If the user successfully logs in, you should bring them to the main activity. They
+    // should NOT be able to go back to the login page by clicking the back button --
+    // we'll implement logout in a little bit.
+    //
+    // This is where you should handle any responses from the server about the login
+    // failing because :
+    // 1. There is no connection
+    // 2. The email is invalid
+    // 3. The user does not exist
+    // 4. The password is invalid
+    
     /**
      * Helper method that makes sure a user is created if the user
      * logs in with Firebase's email/password provider.
