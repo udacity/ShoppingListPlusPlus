@@ -19,6 +19,8 @@ public final class Constants {
     /**
      * Constants for Firebase object properties
      */
+    public static final String FIREBASE_PROPERTY_BOUGHT = "bought";
+    public static final String FIREBASE_PROPERTY_BOUGHT_BY = "boughtBy";
     public static final String FIREBASE_PROPERTY_LIST_NAME = "listName";
     public static final String FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED = "timestampLastChanged";
     public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
