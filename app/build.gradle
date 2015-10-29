@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-// TODO add google-services plugin here
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"

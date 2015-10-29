@@ -3,7 +3,8 @@
     package="com.udacity.firebase.shoppinglistplusplus">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- TODO Add the permissions needed by Google -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:name="com.udacity.firebase.shoppinglistplusplus.ShoppingListApplication"
