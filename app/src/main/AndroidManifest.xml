@@ -3,6 +3,7 @@
     package="com.udacity.firebase.shoppinglistplusplus">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- TODO Add the permissions needed by Google -->
 
     <application
         android:name="com.udacity.firebase.shoppinglistplusplus.ShoppingListApplication"

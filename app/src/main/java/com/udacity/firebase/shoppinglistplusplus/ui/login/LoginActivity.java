@@ -251,6 +251,9 @@ public class LoginActivity extends BaseActivity {
      * @param token A Google OAuth access token returned from Google
      */
     private void loginWithGoogle(String token) {
+        // TODO This method gets called once the "boiler plate" code below gets a token
+        // from google. Use this token and a specific Firebase method to login the user
+        // with google.
     }
 
     /**
