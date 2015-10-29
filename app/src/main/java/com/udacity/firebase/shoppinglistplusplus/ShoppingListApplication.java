@@ -8,6 +8,7 @@ public class ShoppingListApplication extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // TODO Step 3: Initialize Firebase
     }
 
 }
