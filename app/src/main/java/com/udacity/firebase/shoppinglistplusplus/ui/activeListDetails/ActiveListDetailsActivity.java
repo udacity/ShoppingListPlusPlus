@@ -20,6 +20,7 @@ import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 /**
  * Represents the details screen for the selected shopping list
@@ -30,6 +31,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private ActiveListItemAdapter mActiveListItemAdapter;
     private ListView mListView;
     private String mListId;
+    /* Stores whether the current user is the owner */
+    private boolean mCurrentUserIsOwner = false;
     private ShoppingList mShoppingList;
     private ValueEventListener mActiveListRefListener;
 
@@ -68,6 +71,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /* Create ActiveListItemAdapter and set to listView */
         mListView.setAdapter(mActiveListItemAdapter);
 
+
         /**
          * Add ValueEventListeners to Firebase references
          * to control get data and control behavior and visibility of elements
@@ -104,6 +108,10 @@ public class ActiveListDetailsActivity extends BaseActivity {
                  * We do this here because mShoppingList is null when first created.
                  */
                 mActiveListItemAdapter.setShoppingList(mShoppingList);
+
+                /* Check if the current user is owner */
+                mCurrentUserIsOwner = Utils.checkIfOwner(shoppingList, mEncodedEmail);
+
 
                 /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
                 invalidateOptionsMenu();
@@ -161,11 +169,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
         MenuItem archive = menu.findItem(R.id.action_archive);
 
         /* Only the edit and remove options are implemented */
-        // TODO You should only be able to view the edit and remove option if you
-        // are the owner. You might want an instance variable that keeps track
-        // of ownership status...
-        remove.setVisible(true);
-        edit.setVisible(true);
+        remove.setVisible(mCurrentUserIsOwner);
+        edit.setVisible(mCurrentUserIsOwner);
         share.setVisible(false);
         archive.setVisible(false);
 

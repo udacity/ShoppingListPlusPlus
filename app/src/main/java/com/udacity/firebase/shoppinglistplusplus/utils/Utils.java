@@ -2,6 +2,8 @@ package com.udacity.firebase.shoppinglistplusplus.utils;
 
 import android.content.Context;
 
+import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -23,14 +25,19 @@ public class Utils {
     }
 
     /**
+     * Return true if currentUserEmail equals to shoppingList.owner()
+     * Return false otherwise
+     */
+    public static boolean checkIfOwner(ShoppingList shoppingList, String currentUserEmail) {
+        return (shoppingList.getOwner() != null &&
+                shoppingList.getOwner().equals(currentUserEmail));
+    }
+
+    /**
      * Encode user email to use it as a Firebase key (Firebase does not allow "." in the key name)
      * Encoded email is also used as "userEmail", list and item "owner" value
      */
     public static String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
-
-    // TODO I suggest writing the code that checks for ownership here. Who knows, you might need
-    // it later.
-
 }
