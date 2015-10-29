@@ -161,6 +161,9 @@ public class ActiveListDetailsActivity extends BaseActivity {
         MenuItem archive = menu.findItem(R.id.action_archive);
 
         /* Only the edit and remove options are implemented */
+        // TODO You should only be able to view the edit and remove option if you
+        // are the owner. You might want an instance variable that keeps track
+        // of ownership status...
         remove.setVisible(true);
         edit.setVisible(true);
         share.setVisible(false);

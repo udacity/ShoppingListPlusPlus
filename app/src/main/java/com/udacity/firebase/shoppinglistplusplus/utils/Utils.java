@@ -30,4 +30,7 @@ public class Utils {
         return userEmail.replace(".", ",");
     }
 
+    // TODO I suggest writing the code that checks for ownership here. Who knows, you might need
+    // it later.
+
 }
