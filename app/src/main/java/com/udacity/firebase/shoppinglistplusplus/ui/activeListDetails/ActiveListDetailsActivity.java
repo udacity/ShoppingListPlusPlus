@@ -78,7 +78,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Add ValueEventListeners to Firebase references
          * to control get data and control behavior and visibility of elements
          */
-
+        // TODO Add a listener for the current user and keep this current user in an instance variable.
+        // This will allow you to easily add the current user as a "shopper" on a shopping list.
 
         /**
          * Save the most recent version of current shopping list into mShoppingList instance
@@ -120,6 +121,10 @@ public class ActiveListDetailsActivity extends BaseActivity {
 
                 /* Set title appropriately. */
                 setTitle(shoppingList.getListName());
+
+                // TODO When the list changes, you can check to see if the current user is part of
+                // the list of shopping users. If they are, you should style the green shopping
+                // button appropriately and change the state of the activity to "shopping mode".
             }
 
             @Override
@@ -166,6 +171,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     String itemId = mActiveListItemAdapter.getRef(position).getKey();
 
                     if (selectedListItem != null) {
+                        // TODO You should only be able to buy/unbuy and item if in shopping mode.
 
                             /* Create map and fill it in with deep path multi write operations list */
                         HashMap<String, Object> updatedItemBoughtData = new HashMap<String, Object>();
@@ -267,6 +273,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         super.onDestroy();
         mActiveListItemAdapter.cleanup();
         mActiveListRef.removeEventListener(mActiveListRefListener);
+        // TODO Make sure to clean up any additional listeners.
     }
 
     /**
@@ -346,6 +353,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
      * This method is called when user taps "Start/Stop shopping" button
      */
     public void toggleShopping(View view) {
+        // TODO Toggle whether or not the user is shopping. What's the best way to do this?
 
     }
 }

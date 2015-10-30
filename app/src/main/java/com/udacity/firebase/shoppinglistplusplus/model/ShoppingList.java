@@ -15,7 +15,7 @@ public class ShoppingList {
     private String owner;
     private HashMap<String, Object> timestampLastChanged;
     private HashMap<String, Object> timestampCreated;
-
+    // TODO You should find some way to keep track of the users shopping on a given list
 
     /**
      * Required public constructor
