@@ -160,6 +160,9 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.primary_dark));
                     mShopping = false;
                 }
+                // TODO Create a method called "setWhosShoppingText" which takes in a list of
+                // shopping users and displays all or some of their names in the TextView
+                // R.id.text_view_people_shopping
 
             }
 
@@ -332,6 +335,15 @@ public class ActiveListDetailsActivity extends BaseActivity {
         mListView.addFooterView(footer);
     }
 
+    // TODO Create a method called setWhosShoppingText here. The purpose of this method
+    // should be to set the text of the R.id.text_view_people_shopping TextView to
+    // either:
+    //  - You are shopping (if just you are shopping)
+    //  - You and X are shopping (if just you and one other person are shopping)
+    //  - You and N others (If more than just you and one other are shopping)
+    //  - X is shopping (If just the person X is shopping)
+    //  - X and Y are shopping (If just X and Y are shopping)
+    //  - X and N others are shopping (If more than 2 people are shopping and you are not shopping)
 
     /**
      * Archive current list when user selects "Archive" menu item
