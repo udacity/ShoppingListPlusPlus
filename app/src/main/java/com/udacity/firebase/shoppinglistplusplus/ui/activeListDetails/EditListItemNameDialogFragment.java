@@ -63,6 +63,7 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
     /**
      * Change selected list item name to the editText input if it is not empty
      */
+    // TODO Update this method.
     protected void doListEdit() {
         String nameInput = mEditTextForList.getText().toString();
 

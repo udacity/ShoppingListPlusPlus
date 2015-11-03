@@ -97,6 +97,7 @@ public class AddListDialogFragment extends DialogFragment {
     /**
      * Add new active list
      */
+    // TODO Update this method.
     public void addShoppingList() {
         String userEnteredName = mEditTextListName.getText().toString();
 

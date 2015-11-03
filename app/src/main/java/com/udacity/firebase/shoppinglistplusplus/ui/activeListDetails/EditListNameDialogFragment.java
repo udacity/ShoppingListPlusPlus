@@ -59,6 +59,7 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     /**
      * Changes the list name in all copies of the current list
      */
+    // TODO Update this method.
     protected void doListEdit() {
         final String inputListName = mEditTextForList.getText().toString();
         

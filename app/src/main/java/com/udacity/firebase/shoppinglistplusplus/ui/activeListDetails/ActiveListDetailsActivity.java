@@ -482,6 +482,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     /**
      * This method is called when user taps "Start/Stop shopping" button
      */
+    // TODO Update this method.
     public void toggleShopping(View view) {
         /**
          * If current user is already shopping, remove current user from usersShopping map

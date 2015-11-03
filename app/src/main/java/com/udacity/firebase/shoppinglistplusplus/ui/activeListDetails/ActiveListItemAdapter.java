@@ -109,6 +109,7 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         });
     }
 
+    // TODO Update this method.
     private void removeItem(String itemId) {
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
 

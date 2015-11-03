@@ -51,6 +51,7 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
     /**
      * Adds new item to the current shopping list
      */
+    // TODO Update this method.
     @Override
     protected void doListEdit() {
         String mItemName = mEditTextForList.getText().toString();

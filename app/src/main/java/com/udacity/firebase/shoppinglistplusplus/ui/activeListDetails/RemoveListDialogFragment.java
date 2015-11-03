@@ -65,6 +65,7 @@ public class RemoveListDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    // TODO Update this method. You might need to pass in more data via the newInstance method.
     private void removeList() {
 
         /**
