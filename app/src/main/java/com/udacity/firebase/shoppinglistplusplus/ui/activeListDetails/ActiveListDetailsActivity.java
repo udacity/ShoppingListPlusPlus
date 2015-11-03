@@ -49,6 +49,9 @@ public class ActiveListDetailsActivity extends BaseActivity {
     private ShoppingList mShoppingList;
     private ValueEventListener mCurrentUserRefListener, mActiveListRefListener;
 
+    // TODO This is a very quick feature to implement. Where should you add the query? Where
+    // what can you orderBy?
+    
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
