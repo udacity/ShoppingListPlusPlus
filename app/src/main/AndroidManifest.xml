@@ -49,5 +49,6 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/action_settings" />
+        <!-- TODO Add the sharing related activates here -->
     </application>
 </manifest>

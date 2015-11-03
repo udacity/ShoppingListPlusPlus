@@ -29,6 +29,13 @@ public class AutocompleteFriendAdapter extends FirebaseListAdapter<User> {
      */
     @Override
     protected void populateView(View view, final User user) {
+        // TODO Each entry should just be the email address of the user.
+        // You should set an onClickListener here (or an onItemClickedListener)
+        // which will add the clicked user to the friend's userFriends list.
+
+        // TODO you should do error checks using the two methods below to make
+        // sure that the user clicked is not the current user and the is not
+        // already on the user's list.
     }
 
     /** Checks if the friend you try to add is the current user **/

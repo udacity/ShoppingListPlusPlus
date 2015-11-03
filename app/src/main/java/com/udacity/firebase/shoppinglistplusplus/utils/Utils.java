@@ -45,6 +45,9 @@ public class Utils {
         return userEmail.replace(".", ",");
     }
 
+    // TODO You should make a decodeEmail that's an opposite of encodeEmail so that you can print out
+    // "human-readible" versions of the email.
+
     /**
      * Adds values to a pre-existing HashMap for updating a property for all of the ShoppingList copies.
      * The HashMap can then be used with {@link Firebase#updateChildren(Map)} to update the property

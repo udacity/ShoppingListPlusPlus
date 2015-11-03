@@ -36,7 +36,8 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
      */
     @Override
     protected void populateView(View view, final User friend) {
-
+        // TODO No need to implement any sort of sharing yet, just print out the user's name
+        // (not email) to the appropriate TextView (R.id.user_name).
     }
 
     /**

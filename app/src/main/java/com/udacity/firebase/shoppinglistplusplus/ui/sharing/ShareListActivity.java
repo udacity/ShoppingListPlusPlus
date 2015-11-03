@@ -25,11 +25,14 @@ public class ShareListActivity extends BaseActivity {
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
+
+        // TODO Set up the FriendAdapter here. It should display a list of friends of the user.
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO Make sure to clean up after yourself.
     }
 
     /**

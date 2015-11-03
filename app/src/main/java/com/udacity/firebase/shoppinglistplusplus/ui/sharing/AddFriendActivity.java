@@ -44,11 +44,19 @@ public class AddFriendActivity extends BaseActivity {
 
             }
         });**/
+
+        // TODO Here is where you should create and set and instance of AutocompleteFriendAdapter
+        // Right now this adapter just shows a list of user emails that you can click on to add to
+        // your friend list. It is not doing any sort of autocomplete....yet.
+
+        // TODO The user emails should not contain commas; you might want to make a decode utility
+        // method to handle this.
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO Make sure to clean up your adapter!
     }
 
     /**

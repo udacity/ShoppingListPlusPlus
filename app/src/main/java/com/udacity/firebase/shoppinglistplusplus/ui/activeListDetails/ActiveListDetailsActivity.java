@@ -275,6 +275,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /* Only the edit and remove options are implemented */
         remove.setVisible(mCurrentUserIsOwner);
         edit.setVisible(mCurrentUserIsOwner);
+        // TODO You'll need the share button to be visible if the user is the owner.
         share.setVisible(false);
         archive.setVisible(false);
 
@@ -305,6 +306,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Eventually we'll add this
          */
         if (id == R.id.action_share_list) {
+            // TODO This is the method called if they press the share button. It should start the
+            // ShareListActivity
             return true;
         }
 
