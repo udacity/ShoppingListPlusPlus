@@ -2,6 +2,8 @@ package com.udacity.firebase.shoppinglistplusplus.ui.sharing;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -17,6 +19,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 public class AddFriendActivity extends BaseActivity {
     private EditText mEditTextAddFriendEmail;
     private AutocompleteFriendAdapter mFriendsAutocompleteAdapter;
+    private String mInput;
     private ListView mListViewAutocomplete;
     private Firebase mUsersRef;
 
@@ -41,13 +44,7 @@ public class AddFriendActivity extends BaseActivity {
          * Set interactive bits, such as click events/adapters
          */
 
-        mFriendsAutocompleteAdapter = new AutocompleteFriendAdapter(AddFriendActivity.this, User.class,
-                R.layout.single_autocomplete_item, mUsersRef.orderByChild(Constants.FIREBASE_PROPERTY_EMAIL),
-                mEncodedEmail);
-
-        mListViewAutocomplete.setAdapter(mFriendsAutocompleteAdapter);
-
-        /**mEditTextAddFriendEmail.addTextChangedListener(new TextWatcher() {
+        mEditTextAddFriendEmail.addTextChangedListener(new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -58,20 +55,35 @@ public class AddFriendActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-        // TODO This is where you can add the search code. Tips:
-        // 1.   The easiest way to do this involves just making a new adapter with a new query.
-        // 2.   Since you'll be making lots of adapters, make sure to clean up the old ones.
-        // 3.   If the user has types less than 2 characters, then nothing should be displayed.
+                /* Get the input after every textChanged event and transform it to lowercase */
+            mInput = mEditTextAddFriendEmail.getText().toString().toLowerCase();
+
+            /* Clean up the old adapter */
+            if (mFriendsAutocompleteAdapter != null) mFriendsAutocompleteAdapter.cleanup();
+            /* Nullify the adapter data if the input length is less than 2 characters */
+            if (mInput.equals("") || mInput.length() < 2) {
+                mListViewAutocomplete.setAdapter(null);
+
+            /* Define and set the adapter otherwise. */
+            } else {
+                mFriendsAutocompleteAdapter = new AutocompleteFriendAdapter(AddFriendActivity.this, User.class,
+                        R.layout.single_autocomplete_item, mUsersRef.orderByChild(Constants.FIREBASE_PROPERTY_EMAIL)
+                        .startAt(mInput).endAt(mInput + "~").limitToFirst(5), mEncodedEmail);
+
+                mListViewAutocomplete.setAdapter(mFriendsAutocompleteAdapter);
+            }
 
         }
-        });**/
+        });
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mFriendsAutocompleteAdapter.cleanup();
+        if (mFriendsAutocompleteAdapter != null) {
+            mFriendsAutocompleteAdapter.cleanup();
+        }
     }
 
     /**

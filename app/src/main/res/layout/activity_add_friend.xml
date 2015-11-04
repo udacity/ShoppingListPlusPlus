@@ -37,8 +37,7 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textColorHint="@color/dark_grey"
-            android:visibility="gone"/>
-        <!-- TODO You should set this to visible -->
+            android:visibility="visible"/>
     </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>
