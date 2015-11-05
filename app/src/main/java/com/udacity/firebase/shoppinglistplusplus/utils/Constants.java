@@ -11,6 +11,9 @@ public final class Constants {
      * Constants related to locations in Firebase, such as the name of the node
      * where active lists are stored (ie "activeLists")
      */
+    // TODO You should no longer be using the location for a single list ("activeList").
+    // It can safely be deleted since now the lists are stored withing a list of
+    // shopping lists.
     public static final String FIREBASE_LOCATION_ACTIVE_LIST = "activeList";
     public static final String FIREBASE_LOCATION_ACTIVE_LISTS = "activeLists";
 
@@ -21,11 +24,11 @@ public final class Constants {
     public static final String FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED = "timestampLastChanged";
     public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
 
-
     /**
      * Constants for Firebase URL
      */
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+    // TODO Same as above; this URL for a single list is no longer needed.
     public static final String FIREBASE_URL_ACTIVE_LIST = FIREBASE_URL + "/" + FIREBASE_LOCATION_ACTIVE_LIST;
     public static final String FIREBASE_URL_ACTIVE_LISTS = FIREBASE_URL + "/" + FIREBASE_LOCATION_ACTIVE_LISTS;
 

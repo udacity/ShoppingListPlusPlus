@@ -34,9 +34,16 @@ public class ActiveListDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
 
+        // TODO You should grab a list id, passed from the ShoppingListFragment somewhere
+        // in onCreate. You'll need it.
+
         /**
          * Create Firebase references
          */
+        // TODO Given the updated location of the Shopping Lists
+        // (all lists are now nested within push ids)
+        // you'll need to update this and other Firebase references to point to the
+        // actual location of the list you're interested in.
         mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
 
 

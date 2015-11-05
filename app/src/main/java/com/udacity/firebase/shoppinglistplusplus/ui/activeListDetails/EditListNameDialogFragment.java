@@ -23,6 +23,13 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
      */
     public static EditListNameDialogFragment newInstance(ShoppingList shoppingList) {
         EditListNameDialogFragment editListNameDialogFragment = new EditListNameDialogFragment();
+        // TODO If you look below, you'll see that you're going to need the push id
+        // of the list. Instead of putting it in the bundle here, I'd suggest adding
+        // it to the newInstanceHelper method in EditListDialogFragment. This method
+        // creates a bundle with information that all dialogs extending EditListDialogFragment
+        // need.
+        // Note, this refactor will require updating a few different classes that also extend
+        // from EditListDialogFragment, as well as places where they are constructed.
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_list);
         bundle.putString(Constants.KEY_LIST_NAME, shoppingList.getListName());
         editListNameDialogFragment.setArguments(bundle);
@@ -36,6 +43,7 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListName = getArguments().getString(Constants.KEY_LIST_NAME);
+        // TODO Don't forget to set an instance variable to your push id argument.
     }
 
 
@@ -60,6 +68,8 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
     protected void doListEdit() {
         final String inputListName = mEditTextForList.getText().toString();
 
+        // TODO you'll need to update this code to properly change the correct list name,
+        // now that there is more than one list.
         /**
          * Set input text to be the current list name if it is not empty
          */

@@ -80,13 +80,18 @@ public class ShoppingListsFragment extends Fragment {
         /**
          * Set interactive bits, such as click events and adapters
          */
+        // TODO Here is where you will launch ActiveListDetailsActivity for the particular
+        // shopping list the user clicks on. Make sure to pass along the push id of
+        // the chosen list in an intent extra.
+        // Then in ActiveListDetailsActivity you can use this push id to help
+        // display the list.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
-
+        
         return rootView;
     }
     

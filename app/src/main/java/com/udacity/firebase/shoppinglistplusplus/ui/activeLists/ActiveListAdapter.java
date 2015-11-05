@@ -36,7 +36,7 @@ public class ActiveListAdapter extends FirebaseListAdapter<ShoppingList> {
          */
         TextView textViewListName = (TextView) view.findViewById(R.id.text_view_list_name);
         TextView textViewCreatedByUser = (TextView) view.findViewById(R.id.text_view_created_by_user);
-        
+
 
         /* Set the list name and owner */
         textViewListName.setText(list.getListName());
