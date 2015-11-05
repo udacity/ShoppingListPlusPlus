@@ -170,13 +170,13 @@ public class MainActivity extends BaseActivity {
              */
             switch (position) {
                 case 0:
-                    fragment = ShoppingListsFragment.newInstance();
+                    fragment = ShoppingListsFragment.newInstance(mEncodedEmail);
                     break;
                 case 1:
                     fragment = MealsFragment.newInstance();
                     break;
                 default:
-                    fragment = ShoppingListsFragment.newInstance();
+                    fragment = ShoppingListsFragment.newInstance(mEncodedEmail);
                     break;
             }
 

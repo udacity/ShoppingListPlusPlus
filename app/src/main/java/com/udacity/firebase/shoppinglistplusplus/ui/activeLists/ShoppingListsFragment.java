@@ -23,6 +23,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
  * create an instance of this fragment.
  */
 public class ShoppingListsFragment extends Fragment {
+    private String mEncodedEmail;
     private ActiveListAdapter mActiveListAdapter;
     private ListView mListView;
 
@@ -34,9 +35,10 @@ public class ShoppingListsFragment extends Fragment {
      * Create fragment and pass bundle with data as it's arguments
      * Right now there are not arguments...but eventually there will be.
      */
-    public static ShoppingListsFragment newInstance() {
+    public static ShoppingListsFragment newInstance(String encodedEmail) {
         ShoppingListsFragment fragment = new ShoppingListsFragment();
         Bundle args = new Bundle();
+        args.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,6 +50,7 @@ public class ShoppingListsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            mEncodedEmail = getArguments().getString(Constants.KEY_ENCODED_EMAIL);
         }
     }
 
@@ -71,7 +74,7 @@ public class ShoppingListsFragment extends Fragment {
          * the list and finally, a reference to the Firebase location with the list data
          */
         mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
-                R.layout.single_active_list, activeListsRef);
+                R.layout.single_active_list, activeListsRef, mEncodedEmail);
 
 
         /**
