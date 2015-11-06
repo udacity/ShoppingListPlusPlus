@@ -44,9 +44,15 @@ public class Utils {
     public static String encodeEmail(String userEmail) {
         return userEmail.replace(".", ",");
     }
-
-    // TODO You should make a decodeEmail that's an opposite of encodeEmail so that you can print out
-    // "human-readible" versions of the email.
+    
+    /**
+     * Email is being decoded just once to display real email in AutocompleteFriendAdapter
+     *
+     * @see com.udacity.firebase.shoppinglistplusplus.ui.sharing.AutocompleteFriendAdapter
+     */
+    public static String decodeEmail(String userEmail) {
+        return userEmail.replace(",", ".");
+    }
 
     /**
      * Adds values to a pre-existing HashMap for updating a property for all of the ShoppingList copies.

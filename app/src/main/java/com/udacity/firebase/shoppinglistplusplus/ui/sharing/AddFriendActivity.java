@@ -5,15 +5,21 @@ import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
+import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 /**
  * Represents the Add Friend screen and functionality
  */
 public class AddFriendActivity extends BaseActivity {
     private EditText mEditTextAddFriendEmail;
+    private AutocompleteFriendAdapter mFriendsAutocompleteAdapter;
     private ListView mListViewAutocomplete;
+    private Firebase mUsersRef;
+
 
 
 
@@ -21,6 +27,10 @@ public class AddFriendActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
+        /**
+         * Create Firebase references
+         */
+        mUsersRef = new Firebase(Constants.FIREBASE_URL_USERS);
 
         /**
          * Link layout elements from XML and setup the toolbar
@@ -30,33 +40,34 @@ public class AddFriendActivity extends BaseActivity {
         /**
          * Set interactive bits, such as click events/adapters
          */
+
+        mFriendsAutocompleteAdapter = new AutocompleteFriendAdapter(AddFriendActivity.this, User.class,
+                R.layout.single_autocomplete_item, mUsersRef.orderByChild(Constants.FIREBASE_PROPERTY_EMAIL),
+                mEncodedEmail);
+
+        mListViewAutocomplete.setAdapter(mFriendsAutocompleteAdapter);
+
         /**mEditTextAddFriendEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+        @Override
+        public void afterTextChanged(Editable s) {
 
-            }
+        }
         });**/
 
-        // TODO Here is where you should create and set and instance of AutocompleteFriendAdapter
-        // Right now this adapter just shows a list of user emails that you can click on to add to
-        // your friend list. It is not doing any sort of autocomplete....yet.
-
-        // TODO The user emails should not contain commas; you might want to make a decode utility
-        // method to handle this.
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // TODO Make sure to clean up your adapter!
+        mFriendsAutocompleteAdapter.cleanup();
     }
 
     /**

@@ -122,7 +122,7 @@ public class AddListDialogFragment extends DialogFragment {
 
             /* HashMap for data to update */
             HashMap<String, Object> updateShoppingListData = new HashMap<>();
-            
+
             /**
              * Set raw version of date to the ServerValue.TIMESTAMP value and save into
              * timestampCreatedMap

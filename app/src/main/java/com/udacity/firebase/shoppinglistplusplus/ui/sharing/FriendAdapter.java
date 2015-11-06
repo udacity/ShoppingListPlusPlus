@@ -2,11 +2,11 @@ package com.udacity.firebase.shoppinglistplusplus.ui.sharing;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.TextView;
 
-import com.firebase.client.Firebase;
 import com.firebase.client.Query;
-import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseListAdapter;
+import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.User;
 
@@ -17,7 +17,6 @@ import java.util.HashMap;
  */
 public class FriendAdapter extends FirebaseListAdapter<User> {
     private static final String LOG_TAG = FriendAdapter.class.getSimpleName();
-    private HashMap <Firebase, ValueEventListener> mLocationListenerMap;
 
 
     /**
@@ -36,8 +35,7 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
      */
     @Override
     protected void populateView(View view, final User friend) {
-        // TODO No need to implement any sort of sharing yet, just print out the user's name
-        // (not email) to the appropriate TextView (R.id.user_name).
+        ((TextView) view.findViewById(R.id.user_name)).setText(friend.getName());
     }
 
     /**

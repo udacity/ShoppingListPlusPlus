@@ -49,6 +49,22 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:label="@string/action_settings" />
-        <!-- TODO Add the sharing related activates here -->
+        <activity
+            android:name=".ui.sharing.ShareListActivity"
+            android:label="@string/title_activity_share_list"
+            android:parentActivityName=".ui.activeListDetails.ActiveListDetailsActivity"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activeListDetails.ActiveListDetailsActivity" />
+        </activity>
+        <activity
+            android:name=".ui.sharing.AddFriendActivity"
+            android:label="@string/title_activity_add_friend"
+            android:parentActivityName=".ui.sharing.ShareListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.sharing.ShareListActivity" />
+        </activity>
     </application>
 </manifest>

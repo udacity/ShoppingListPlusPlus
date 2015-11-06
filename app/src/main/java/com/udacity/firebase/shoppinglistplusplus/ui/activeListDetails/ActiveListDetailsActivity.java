@@ -25,6 +25,7 @@ import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
 import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
+import com.udacity.firebase.shoppinglistplusplus.ui.sharing.ShareListActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
@@ -275,8 +276,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         /* Only the edit and remove options are implemented */
         remove.setVisible(mCurrentUserIsOwner);
         edit.setVisible(mCurrentUserIsOwner);
-        // TODO You'll need the share button to be visible if the user is the owner.
-        share.setVisible(false);
+        share.setVisible(mCurrentUserIsOwner);
         archive.setVisible(false);
 
         return true;
@@ -306,8 +306,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Eventually we'll add this
          */
         if (id == R.id.action_share_list) {
-            // TODO This is the method called if they press the share button. It should start the
-            // ShareListActivity
+            Intent intent = new Intent(ActiveListDetailsActivity.this, ShareListActivity.class);
+            startActivity(intent);
             return true;
         }
 
