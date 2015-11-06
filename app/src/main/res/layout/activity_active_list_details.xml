@@ -23,8 +23,7 @@
             android:background="@android:color/white"
             android:orientation="horizontal"
             android:padding="8dp"
-            android:visibility="gone">
-            <!--TODO You should set this LinearLayout to be visible -->
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/text_view_people_shopping"
