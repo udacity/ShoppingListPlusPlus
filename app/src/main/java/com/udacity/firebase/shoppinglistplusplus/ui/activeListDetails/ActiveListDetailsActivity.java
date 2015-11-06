@@ -35,6 +35,9 @@ public class ActiveListDetailsActivity extends BaseActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_list_details);
+        // TODO Here is where you should set everything up for the adapter, much like you
+        // did with the ShoppingListsFragment class and the ActiveListAdapter.
+        // I've created the list item layout "single_active_list_item.xml" for you to use.
 
         /* Get the push ID from the extra passed by ShoppingListFragment */
         Intent intent = this.getIntent();

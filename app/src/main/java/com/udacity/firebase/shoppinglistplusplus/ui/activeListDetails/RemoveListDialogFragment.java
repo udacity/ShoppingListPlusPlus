@@ -62,6 +62,11 @@ public class RemoveListDialogFragment extends DialogFragment {
     }
 
     private void removeList() {
+        // TODO Now that you have shopping list items in your database, you need to delete
+        // those as well as the shopping list itself. This should all be done in one write
+        // request to the Firebase database (as in don't use removeValue twice). Is there
+        // a write method which will allow you to do this?
+
         /* Get the location to remove from */
         Firebase listToRemoveRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS).child(mListId);
         /* Remove the value */

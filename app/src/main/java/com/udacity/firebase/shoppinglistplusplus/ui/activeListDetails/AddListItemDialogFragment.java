@@ -44,6 +44,9 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
      */
     @Override
     protected void doListEdit() {
+        // TODO The code here should do the write which adds a new item to the list.
+        // You should also update the list's last edit timestamp. You can do both of
+        // these actions in one call to the server.
 
     }
 }
