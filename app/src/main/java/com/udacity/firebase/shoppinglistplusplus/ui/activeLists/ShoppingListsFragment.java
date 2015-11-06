@@ -1,6 +1,7 @@
 package com.udacity.firebase.shoppinglistplusplus.ui.activeLists;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.ui.activeListDetails.ActiveListDetailsActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 
@@ -21,9 +23,8 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
  * create an instance of this fragment.
  */
 public class ShoppingListsFragment extends Fragment {
-    private ListView mListView;
     private ActiveListAdapter mActiveListAdapter;
-
+    private ListView mListView;
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */
@@ -53,6 +54,7 @@ public class ShoppingListsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         /**
          * Initialize UI elements
          */
@@ -65,36 +67,42 @@ public class ShoppingListsFragment extends Fragment {
         Firebase activeListsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
 
         /**
-         * Add ValueEventListeners to Firebase references
-         * to control get data and control behavior and visibility of elements
+         * Create the adapter, giving it the activity, model class, layout for each row in
+         * the list and finally, a reference to the Firebase location with the list data
          */
         mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
                 R.layout.single_active_list, activeListsRef);
+
 
         /**
          * Set the adapter to the mListView
          */
         mListView.setAdapter(mActiveListAdapter);
 
-
         /**
          * Set interactive bits, such as click events and adapters
          */
-        // TODO Here is where you will launch ActiveListDetailsActivity for the particular
-        // shopping list the user clicks on. Make sure to pass along the push id of
-        // the chosen list in an intent extra.
-        // Then in ActiveListDetailsActivity you can use this push id to help
-        // display the list.
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                ShoppingList selectedList = mActiveListAdapter.getItem(position);
+                if (selectedList != null) {
+                    Intent intent = new Intent(getActivity(), ActiveListDetailsActivity.class);
+                    /* Get the list ID using the adapter's get ref method to get the Firebase
+                     * ref and then grab the key.
+                     */
+                    String listId = mActiveListAdapter.getRef(position).getKey();
+                    intent.putExtra(Constants.KEY_LIST_ID, listId);
+                    /* Starts an active showing the details for the selected list */
+                    startActivity(intent);
+                }
             }
         });
-        
+
+
         return rootView;
     }
-    
+
     /**
      * Cleanup the adapter when activity is destroyed.
      */
@@ -103,7 +111,6 @@ public class ShoppingListsFragment extends Fragment {
         super.onDestroy();
         mActiveListAdapter.cleanup();
     }
-
 
     /**
      * Link list view from XML

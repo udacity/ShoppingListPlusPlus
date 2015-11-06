@@ -14,10 +14,10 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
     /**
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
-    public static AddListItemDialogFragment newInstance(ShoppingList shoppingList) {
+    public static AddListItemDialogFragment newInstance(ShoppingList shoppingList, String listId) {
         AddListItemDialogFragment addListItemDialogFragment = new AddListItemDialogFragment();
 
-        Bundle bundle = newInstanceHelper(shoppingList, R.layout.dialog_add_item);
+        Bundle bundle = newInstanceHelper(shoppingList, R.layout.dialog_add_item, listId);
         addListItemDialogFragment.setArguments(bundle);
 
         return addListItemDialogFragment;
