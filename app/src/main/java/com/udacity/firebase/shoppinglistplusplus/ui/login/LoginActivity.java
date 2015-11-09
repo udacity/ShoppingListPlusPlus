@@ -183,6 +183,8 @@ public class LoginActivity extends BaseActivity {
         public void onAuthenticated(AuthData authData) {
             mAuthProgressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_auth_successful));
+            // TODO Check if the user is logging in with Google. If so get the email and check
+            // if there is a user in your database with that email. If not, create a user.
             if (authData != null) {
                 /* Go to main activity */
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

@@ -22,4 +22,7 @@ public class Utils {
         mContext = con;
     }
 
+    // TODO You can put the encodeEmail method here. This code is important because
+    // Firebase does not allow for keys to have "." in them. As a work around we
+    // can convert "." in emails to ",".
 }

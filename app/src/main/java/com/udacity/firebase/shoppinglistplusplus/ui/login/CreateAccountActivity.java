@@ -147,6 +147,7 @@ public class CreateAccountActivity extends BaseActivity {
      */
     private void createUserInFirebaseHelper(String uid) {
 
+        // TODO Change the key at which the data is stored to an encoded email and not the uid.
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
         /**
          * See if there is already a user (for example, if they already logged in with an associated
