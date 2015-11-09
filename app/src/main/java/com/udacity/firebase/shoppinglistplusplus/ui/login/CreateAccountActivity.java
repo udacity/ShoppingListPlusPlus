@@ -114,6 +114,9 @@ public class CreateAccountActivity extends BaseActivity {
                 /* Dismiss the progress dialog */
                 mAuthProgressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
+                // TODO Use your User POJO to create the user data if they don't already exist.
+                // You can call the createUserInFirebaseHelper helper method and put
+                // the code for creating the user there.
             }
 
             @Override
@@ -139,6 +142,9 @@ public class CreateAccountActivity extends BaseActivity {
      * Creates a new user in Firebase from the Java POJO
      */
     private void createUserInFirebaseHelper(final String encodedEmail) {
+        // TODO Call this method when creating a Firebase user is a success.
+        // In this method you can create your own User POJO to associate
+        // with the new Firebase user that was just created.
     }
 
     private boolean isEmailValid(String email) {
