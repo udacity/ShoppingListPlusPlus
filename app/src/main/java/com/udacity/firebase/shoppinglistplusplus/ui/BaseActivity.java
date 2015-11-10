@@ -54,10 +54,20 @@ public abstract class BaseActivity extends AppCompatActivity implements
         /* Get mEncodedEmail and mProvider from SharedPreferences, use null as default value */
         mEncodedEmail = sp.getString(Constants.KEY_ENCODED_EMAIL, null);
         mProvider = sp.getString(Constants.KEY_PROVIDER, null);
+
+        // TODO Check if the specific class of the activity being instantiated
+        // is an instance of an activity accessible only after logging in.
+        // In that case you should add an auth state listener here. You might want to move the
+        // code inside the auth state listener to a separate helper method to keep the
+        // code cleaner.
+
+        // TODO this listener should move the user back to the LoginActivity screen if they
+        // are not logged in.
     }
 
     @Override
     public void onDestroy() {
+        // TODO don't forget to remove the auth listener!
         super.onDestroy();
     }
 
@@ -81,6 +91,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
             super.onBackPressed();
             return true;
         }
+        // TODO You can add a logout action here; make sure to also add it to the
+        // corresponding menu xml.
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,6 +108,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
             linearLayout.setBackgroundResource(R.drawable.background_loginscreen);
         }
     }
+
+    // TODO Provide a method that is called if the user chooses to log out. Make sure
+    // it works both for password provider and for Google.
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
