@@ -21,7 +21,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
  * Base class for {@link DialogFragment}s involved with editing a shopping list.
  */
 public abstract class EditListDialogFragment extends DialogFragment {
-    String mListId;
+    String mListId, mOwner, mEncodedEmail;
     EditText mEditTextForList;
     int mResource;
 
@@ -33,16 +33,13 @@ public abstract class EditListDialogFragment extends DialogFragment {
      * @param resource
      * @return
      */
-    protected static Bundle newInstanceHelper(ShoppingList shoppingList, int resource, String listId) {
+    protected static Bundle newInstanceHelper(ShoppingList shoppingList, int resource, String listId,
+                                              String encodedEmail) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putInt(Constants.KEY_LAYOUT_RESOURCE, resource);
-        // TODO You should add the current user's encoded email and the list owner's encoded email
-        // as two arguments for creating a EditListDialogFragment. You'll need both soon.
-        // TODO Note: These changes will propagate to all children of EditListDialogFragment,
-        // so you'll need to make small changes to EditListItemNameDialogFragment,
-        // EditListNameDialogFragment and AddListDialogFragment.
-
+        bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
+        bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
         return bundle;
     }
 
@@ -54,6 +51,8 @@ public abstract class EditListDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
         mResource = getArguments().getInt(Constants.KEY_LAYOUT_RESOURCE);
+        mOwner = getArguments().getString(Constants.KEY_LIST_OWNER);
+        mEncodedEmail = getArguments().getString(Constants.KEY_ENCODED_EMAIL);
     }
 
     /**

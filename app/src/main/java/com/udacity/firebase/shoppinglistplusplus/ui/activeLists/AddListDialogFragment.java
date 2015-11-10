@@ -25,15 +25,17 @@ import java.util.HashMap;
  * Adds a new shopping list
  */
 public class AddListDialogFragment extends DialogFragment {
+    String mEncodedEmail;
     EditText mEditTextListName;
 
     /**
      * Public static constructor that creates fragment and
      * passes a bundle with data into it when adapter is created
      */
-    public static AddListDialogFragment newInstance() {
+    public static AddListDialogFragment newInstance(String encodedEmail) {
         AddListDialogFragment addListDialogFragment = new AddListDialogFragment();
         Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
         addListDialogFragment.setArguments(bundle);
         return addListDialogFragment;
     }
@@ -44,6 +46,7 @@ public class AddListDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mEncodedEmail = getArguments().getString(Constants.KEY_ENCODED_EMAIL);
     }
 
     /**
@@ -95,11 +98,7 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-        // Get the string that the user entered into the EditText and make an object with it
-        // We'll use "Anonymous Owner" for the owner because we don't have user accounts yet
-        // TODO Fix this; don't use anonymous owner!
         String userEnteredName = mEditTextListName.getText().toString();
-        String owner = "Anonymous Owner";
 
         /**
          * If EditText input is not empty
@@ -123,7 +122,7 @@ public class AddListDialogFragment extends DialogFragment {
             timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
             /* Build the shopping list */
-            ShoppingList newShoppingList = new ShoppingList(userEnteredName, owner,
+            ShoppingList newShoppingList = new ShoppingList(userEnteredName, mEncodedEmail,
                     timestampCreated);
 
             /* Add the shopping list */

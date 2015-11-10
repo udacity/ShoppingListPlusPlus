@@ -15,18 +15,14 @@ public class ShoppingListItem {
 
     /**
      * Use this constructor to create new ShoppingListItem.
+     * Takes shopping list item name and list item owner email as params
      *
      * @param itemName
+     * @param owner
      */
-    public ShoppingListItem(String itemName) {
+    public ShoppingListItem(String itemName, String owner) {
         this.itemName = itemName;
-        /**
-         * This is a default value until we can differentiate users.
-         * Which will be soon, I promise.
-         */
-        // TODO Time to make good on my promise.
-        // This value should change now that you have the owner.
-        this.owner = "Anonymous Owner";
+        this.owner = owner;
     }
 
     public String getItemName() { return itemName; }

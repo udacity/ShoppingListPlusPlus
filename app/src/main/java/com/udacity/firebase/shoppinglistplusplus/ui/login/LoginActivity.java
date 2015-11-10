@@ -192,72 +192,28 @@ public class LoginActivity extends BaseActivity {
             mAuthProgressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_auth_successful));
 
-            // TODO Your main goal is to make sure that mEncodedEmail is set and properly stored
-            // in shared preferences when using both Google and Password provider.
-            // You're already doing it for Google.
-
-            // TODO as a secondary goal, let's clean up this code! You can store mEncodedEmail in
-            // shared prefs and launch the Main Activity here. Everything you do to make a user
-            // in Google or to retreive the mEncodedEmail should be moved to the two helper
-            // methods setAuthenticatedUserPasswordProvider
-            // and setAuthenticatedUserGoogle
-
-            if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
-                /**
-                 * If google api client is connected, get the lowerCase user email
-                 * and save in sharedPreferences
-                 */
+            if (authData != null) {
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor spe = sp.edit();
-                String unprocessedEmail;
-                if (mGoogleApiClient.isConnected()) {
-                    unprocessedEmail = mGoogleAccount.getEmail().toLowerCase();
-                    spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
-                } else {
-
-                    /**
-                     * Otherwise get email from sharedPreferences, use null as default value
-                     * (this mean that user resumes his session)
-                     */
-                    unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
-                }
                 /**
-                 * Encode user email replacing "." with "," to be able to use it
-                 * as a Firebase db key
+                 * If user has logged in with Google provider
                  */
-                // TODO Here is where you are storing the encoded email for Google
-                mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
-
-
-                    /* Get username from authData */
-                final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
-
-                    /* If no user exists, make a user */
-                final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
-                userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                            /* If nothing is there ...*/
-                        if (dataSnapshot.getValue() == null) {
-                            HashMap<String, Object> timestampJoined = new HashMap<>();
-                            timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-                            User newUser = new User(userName, mEncodedEmail, timestampJoined);
-                            userLocation.setValue(newUser);
-                        }
+                if (authData.getProvider().equals(Constants.PASSWORD_PROVIDER)) {
+                    setAuthenticatedUserPasswordProvider(authData);
+                } else
+                /**
+                 * If user has logged in with Password provider
+                 */
+                    if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
+                        setAuthenticatedUserGoogle(authData);
+                    } else {
+                        Log.e(LOG_TAG, getString(R.string.log_error_invalid_provider) + authData.getProvider());
                     }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-                        Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
-                    }
-                });
+                /* Save provider name and encodedEmail for later use and start MainActivity */
+                spe.putString(Constants.KEY_PROVIDER, authData.getProvider()).apply();
+                spe.putString(Constants.KEY_ENCODED_EMAIL, mEncodedEmail).apply();
 
-
-            }
-
-
-            if (authData != null) {
                 /* Go to main activity */
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -290,7 +246,6 @@ public class LoginActivity extends BaseActivity {
                     showErrorToast(firebaseError.toString());
             }
         }
-
     }
     
     /**
@@ -300,6 +255,12 @@ public class LoginActivity extends BaseActivity {
      * @param authData AuthData object returned from onAuthenticated
      */
     private void setAuthenticatedUserPasswordProvider(AuthData authData) {
+        final String unprocessedEmail = authData.getProviderData().get(Constants.FIREBASE_PROPERTY_EMAIL).toString().toLowerCase();
+        /**
+         * Encode user email replacing "." with ","
+         * to be able to use it as a Firebase db key
+         */
+        mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
     }
 
     /**
@@ -309,7 +270,54 @@ public class LoginActivity extends BaseActivity {
      * @param authData AuthData object returned from onAuthenticated
      */
     private void setAuthenticatedUserGoogle(AuthData authData) {
+/**
+ * If google api client is connected, get the lowerCase user email
+ * and save in sharedPreferences
+ */
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor spe = sp.edit();
+        String unprocessedEmail;
+        if (mGoogleApiClient.isConnected()) {
+            unprocessedEmail = mGoogleAccount.getEmail().toLowerCase();
+            spe.putString(Constants.KEY_GOOGLE_EMAIL, unprocessedEmail).apply();
+        } else {
 
+            /**
+             * Otherwise get email from sharedPreferences, use null as default value
+             * (this mean that user resumes his session)
+             */
+            unprocessedEmail = sp.getString(Constants.KEY_GOOGLE_EMAIL, null);
+        }
+        /**
+         * Encode user email replacing "." with "," to be able to use it
+         * as a Firebase db key
+         */
+        mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
+
+            /* Get username from authData */
+        final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
+
+            /* If no user exists, make a user */
+        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    /* If nothing is there ...*/
+                if (dataSnapshot.getValue() == null) {
+                    HashMap<String, Object> timestampJoined = new HashMap<>();
+                    timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+                    User newUser = new User(userName, mEncodedEmail, timestampJoined);
+                    userLocation.setValue(newUser);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
+            }
+        });
+        
     }
 
     /**
