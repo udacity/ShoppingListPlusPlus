@@ -97,6 +97,7 @@ public class AddListDialogFragment extends DialogFragment {
     public void addShoppingList() {
         // Get the string that the user entered into the EditText and make an object with it
         // We'll use "Anonymous Owner" for the owner because we don't have user accounts yet
+        // TODO Fix this; don't use anonymous owner!
         String userEnteredName = mEditTextListName.getText().toString();
         String owner = "Anonymous Owner";
 

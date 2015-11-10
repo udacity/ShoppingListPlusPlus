@@ -37,6 +37,12 @@ public abstract class EditListDialogFragment extends DialogFragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putInt(Constants.KEY_LAYOUT_RESOURCE, resource);
+        // TODO You should add the current user's encoded email and the list owner's encoded email
+        // as two arguments for creating a EditListDialogFragment. You'll need both soon.
+        // TODO Note: These changes will propagate to all children of EditListDialogFragment,
+        // so you'll need to make small changes to EditListItemNameDialogFragment,
+        // EditListNameDialogFragment and AddListDialogFragment.
+
         return bundle;
     }
 

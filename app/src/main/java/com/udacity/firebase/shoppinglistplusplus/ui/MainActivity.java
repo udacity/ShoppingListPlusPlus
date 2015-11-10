@@ -34,6 +34,9 @@ public class MainActivity extends BaseActivity {
          * Link layout elements from XML and setup the toolbar
          */
         initializeScreen();
+
+        // TODO Add a listener here that sets the title to
+        // <the name of the user>'s Lists
     }
 
 
@@ -64,6 +67,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO Make sure to remove you listener!
     }
 
     /**

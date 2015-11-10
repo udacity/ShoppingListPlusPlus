@@ -24,6 +24,8 @@ public class ShoppingListItem {
          * This is a default value until we can differentiate users.
          * Which will be soon, I promise.
          */
+        // TODO Time to make good on my promise.
+        // This value should change now that you have the owner.
         this.owner = "Anonymous Owner";
     }
 

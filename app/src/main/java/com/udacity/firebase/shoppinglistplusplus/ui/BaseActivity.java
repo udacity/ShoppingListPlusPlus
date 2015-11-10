@@ -38,6 +38,9 @@ public abstract class BaseActivity extends AppCompatActivity implements
          * Build a GoogleApiClient with access to the Google Sign-In API and the
          * options specified by gso.
          */
+        // TODO The plan is to keep the user's encoded email as a value in Shared Preferences.
+        // Then you can load it up here, when the activity starts.
+        /* Setup the Google API object to allow Google+ logins */
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)

@@ -192,6 +192,16 @@ public class LoginActivity extends BaseActivity {
             mAuthProgressDialog.dismiss();
             Log.i(LOG_TAG, provider + " " + getString(R.string.log_message_auth_successful));
 
+            // TODO Your main goal is to make sure that mEncodedEmail is set and properly stored
+            // in shared preferences when using both Google and Password provider.
+            // You're already doing it for Google.
+
+            // TODO as a secondary goal, let's clean up this code! You can store mEncodedEmail in
+            // shared prefs and launch the Main Activity here. Everything you do to make a user
+            // in Google or to retreive the mEncodedEmail should be moved to the two helper
+            // methods setAuthenticatedUserPasswordProvider
+            // and setAuthenticatedUserGoogle
+
             if (authData.getProvider().equals(Constants.GOOGLE_PROVIDER)) {
                 /**
                  * If google api client is connected, get the lowerCase user email
@@ -215,6 +225,7 @@ public class LoginActivity extends BaseActivity {
                  * Encode user email replacing "." with "," to be able to use it
                  * as a Firebase db key
                  */
+                // TODO Here is where you are storing the encoded email for Google
                 mEncodedEmail = Utils.encodeEmail(unprocessedEmail);
 
 
@@ -279,6 +290,7 @@ public class LoginActivity extends BaseActivity {
                     showErrorToast(firebaseError.toString());
             }
         }
+
     }
     
     /**
