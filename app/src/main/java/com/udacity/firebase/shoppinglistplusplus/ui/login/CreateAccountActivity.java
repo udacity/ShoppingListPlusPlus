@@ -2,7 +2,9 @@ package com.udacity.firebase.shoppinglistplusplus.ui.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,11 +35,9 @@ public class CreateAccountActivity extends BaseActivity {
     private static final String LOG_TAG = CreateAccountActivity.class.getSimpleName();
     private ProgressDialog mAuthProgressDialog;
     private Firebase mFirebaseRef;
-    // TODO Remove the password EditText from the layout and from this activity.
-    // Remember, we don't want the user to set their password (or at least not until
-    // they've verified they own the email).
-    private EditText mEditTextUsernameCreate, mEditTextEmailCreate, mEditTextPasswordCreate;
+    private EditText mEditTextUsernameCreate, mEditTextEmailCreate;
     private String mUserName, mUserEmail, mPassword;
+    private SecureRandom mRandom = new SecureRandom();
 
 
     @Override
@@ -71,15 +73,13 @@ public class CreateAccountActivity extends BaseActivity {
     public void initializeScreen() {
         mEditTextUsernameCreate = (EditText) findViewById(R.id.edit_text_username_create);
         mEditTextEmailCreate = (EditText) findViewById(R.id.edit_text_email_create);
-        mEditTextPasswordCreate = (EditText) findViewById(R.id.edit_text_password_create);
         LinearLayout linearLayoutCreateAccountActivity = (LinearLayout) findViewById(R.id.linear_layout_create_account_activity);
         initializeBackground(linearLayoutCreateAccountActivity);
 
         /* Setup the progress dialog that is displayed later when authenticating with Firebase */
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle(getResources().getString(R.string.progress_dialog_loading));
-        // TODO Change the R.string to progress_dialog_check_inbox
-        mAuthProgressDialog.setMessage(getResources().getString(R.string.progress_dialog_creating_user_with_firebase));
+        mAuthProgressDialog.setMessage(getResources().getString(R.string.progress_dialog_check_inbox));
         mAuthProgressDialog.setCancelable(false);
     }
 
@@ -99,17 +99,14 @@ public class CreateAccountActivity extends BaseActivity {
     public void onCreateAccountPressed(View view) {
         mUserName = mEditTextUsernameCreate.getText().toString();
         mUserEmail = mEditTextEmailCreate.getText().toString().toLowerCase();
-        // TODO Instead of using a user inputted value, you can generate a cryptographically
-        // strong random number password using the BigInteger and SecureRandom classes.
-        mPassword = mEditTextPasswordCreate.getText().toString();
+        mPassword = new BigInteger(130, mRandom).toString(32);
 
         /**
          * Check that email and user name are okay
          */
         boolean validEmail = isEmailValid(mUserEmail);
         boolean validUserName = isUserNameValid(mUserName);
-        boolean validPassword = isPasswordValid(mPassword);
-        if (!validEmail || !validUserName || !validPassword) return;
+        if (!validEmail || !validUserName) return;
 
         /**
          * If everything was valid show the progress dialog to indicate that
@@ -123,17 +120,55 @@ public class CreateAccountActivity extends BaseActivity {
         mFirebaseRef.createUser(mUserEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
             public void onSuccess(Map<String, Object> result) {
-                // TODO Instead of what happens below, you should:
-                //  1.  Reset the user's password, therefore sending an email to them
-                //  2.  Store the email they signed up with in SharedPreferences, so that when
-                //      They go to the login page, it has the email there for them.
-                //  3.  Create the user in Firebase
-                //  4.  Open up the user's default email application for them
+                /**
+                 * If user was successfully created, run resetPassword() to send temporary 24h
+                 * password to the user's email and make sure that user owns specified email
+                 */
+                mFirebaseRef.resetPassword(mUserEmail, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        mAuthProgressDialog.dismiss();
+                        Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
 
-                /* Dismiss the progress dialog */
-                mAuthProgressDialog.dismiss();
-                Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
-                createUserInFirebaseHelper();
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);
+                        SharedPreferences.Editor spe = sp.edit();
+
+                        /**
+                         * Save name and email to sharedPreferences to create User database record
+                         * when the registered user will sign in for the first time
+                         */
+                        spe.putString(Constants.KEY_SIGNUP_EMAIL, mUserEmail).apply();
+
+                        /**
+                         * Encode user email replacing "." with ","
+                         * to be able to use it as a Firebase db key
+                         */
+                        createUserInFirebaseHelper();
+
+                        /**
+                         *  Password reset email sent, open app chooser to pick app
+                         *  for handling inbox email intent
+                         */
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                        try {
+                            startActivity(intent);
+                            finish();
+                        } catch (android.content.ActivityNotFoundException ex) {
+                                    /* User does not have any app to handle email */
+                        }
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        /* Error occurred, log the error and dismiss the progress dialog */
+                        Log.d(LOG_TAG, getString(R.string.log_error_occurred) +
+                                firebaseError);
+                        mAuthProgressDialog.dismiss();
+                    }
+                });
+
+
             }
 
             @Override
@@ -184,7 +219,6 @@ public class CreateAccountActivity extends BaseActivity {
                 Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
             }
         });
-
     }
 
     private boolean isEmailValid(String email) {
@@ -206,13 +240,6 @@ public class CreateAccountActivity extends BaseActivity {
         return true;
     }
 
-    private boolean isPasswordValid(String password) {
-        if (password.length() < 6) {
-            mEditTextPasswordCreate.setError(getResources().getString(R.string.error_invalid_password_not_valid));
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Show error toast to users

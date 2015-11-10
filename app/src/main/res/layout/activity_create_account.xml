@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hintTextAppearance="@style/HintText"
-            android:layout_marginBottom="@dimen/lists_title_bottom_margin">
+            android:layout_marginBottom="@dimen/margin_normal">
 
             <EditText
                 android:id="@+id/edit_text_email_create"
@@ -57,27 +57,6 @@
                 android:background="@android:color/white"
                 android:hint="@string/hint_enter_email"
                 android:inputType="textEmailAddress"
-                android:padding="@dimen/edit_text_padding"
-                android:textColor="@color/black"
-                android:textColorHint="@color/dark_grey"
-                android:textSize="@dimen/login_buttons_text_size" />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_password_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/HintText"
-            android:layout_marginBottom="@dimen/margin_normal">
-
-            <EditText
-                android:id="@+id/edit_text_password_create"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:hint="@string/hint_enter_password"
-                android:inputType="textPassword"
                 android:padding="@dimen/edit_text_padding"
                 android:textColor="@color/black"
                 android:textColorHint="@color/dark_grey"
