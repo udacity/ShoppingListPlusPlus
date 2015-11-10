@@ -21,7 +21,8 @@ import com.udacity.firebase.shoppinglistplusplus.R;
 public abstract class BaseActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
-    // TODO Make a variable for the encoded email here
+    protected String mEncodedEmail;
+    /* Client used to interact with Google APIs. */
     protected GoogleApiClient mGoogleApiClient;
 
     @Override

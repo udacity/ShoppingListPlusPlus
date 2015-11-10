@@ -22,7 +22,12 @@ public class Utils {
         mContext = con;
     }
 
-    // TODO You can put the encodeEmail method here. This code is important because
-    // Firebase does not allow for keys to have "." in them. As a work around we
-    // can convert "." in emails to ",".
+    /**
+     * Encode user email to use it as a Firebase key (Firebase does not allow "." in the key name)
+     * Encoded email is also used as "userEmail", list and item "owner" value
+     */
+    public static String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
+    }
+
 }

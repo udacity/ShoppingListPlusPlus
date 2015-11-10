@@ -19,6 +19,7 @@ import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -119,8 +120,7 @@ public class CreateAccountActivity extends BaseActivity {
                 /* Dismiss the progress dialog */
                 mAuthProgressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
-                String uid = (String) result.get("uid");
-                createUserInFirebaseHelper(uid);
+                createUserInFirebaseHelper();
             }
 
             @Override
@@ -145,10 +145,9 @@ public class CreateAccountActivity extends BaseActivity {
     /**
      * Creates a new user in Firebase from the Java POJO
      */
-    private void createUserInFirebaseHelper(String uid) {
-
-        // TODO Change the key at which the data is stored to an encoded email and not the uid.
-        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
+    private void createUserInFirebaseHelper() {
+        final String encodedEmail = Utils.encodeEmail(mUserEmail);
+        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
         /**
          * See if there is already a user (for example, if they already logged in with an associated
          * Google account.
@@ -162,7 +161,7 @@ public class CreateAccountActivity extends BaseActivity {
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
-                    User newUser = new User(mUserName, mUserEmail, timestampJoined);
+                    User newUser = new User(mUserName, encodedEmail, timestampJoined);
                     userLocation.setValue(newUser);
                 }
             }
