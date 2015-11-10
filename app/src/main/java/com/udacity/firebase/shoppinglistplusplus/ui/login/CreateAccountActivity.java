@@ -10,12 +10,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ServerValue;
+import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.ui.BaseActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -114,9 +119,8 @@ public class CreateAccountActivity extends BaseActivity {
                 /* Dismiss the progress dialog */
                 mAuthProgressDialog.dismiss();
                 Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
-                // TODO Use your User POJO to create the user data if they don't already exist.
-                // You can call the createUserInFirebaseHelper helper method and put
-                // the code for creating the user there.
+                String uid = (String) result.get("uid");
+                createUserInFirebaseHelper(uid);
             }
 
             @Override
@@ -141,10 +145,33 @@ public class CreateAccountActivity extends BaseActivity {
     /**
      * Creates a new user in Firebase from the Java POJO
      */
-    private void createUserInFirebaseHelper(final String encodedEmail) {
-        // TODO Call this method when creating a Firebase user is a success.
-        // In this method you can create your own User POJO to associate
-        // with the new Firebase user that was just created.
+    private void createUserInFirebaseHelper(String uid) {
+
+        final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(uid);
+        /**
+         * See if there is already a user (for example, if they already logged in with an associated
+         * Google account.
+         */
+        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                /* If there is no user, make one */
+                if (dataSnapshot.getValue() == null) {
+                 /* Set raw version of date to the ServerValue.TIMESTAMP value and save into dateCreatedMap */
+                    HashMap<String, Object> timestampJoined = new HashMap<>();
+                    timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+                    User newUser = new User(mUserName, mUserEmail, timestampJoined);
+                    userLocation.setValue(newUser);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
+            }
+        });
+
     }
 
     private boolean isEmailValid(String email) {
