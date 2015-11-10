@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.udacity.firebase.shoppinglistplusplus">
 
-    <!-- TODO Step 2: Add the correct app permission(s) for Firebase here -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.udacity.firebase.shoppinglistplusplus.ShoppingListApplication"
