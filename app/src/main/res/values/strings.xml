@@ -183,6 +183,7 @@
     <string name="toast_is_already_your_friend">%s is already your friend!</string>
     <string name="toast_you_cant_add_yourself">You can\'t add yourself as a friend.</string>
 
+
     <!--
 
     == Settings Strings ==
@@ -206,5 +207,8 @@
 
 
     <!-- Values -->
+    <!-- TODO Add preference values here. These can be referenced in the arrays.xml which
+    controls what is in the preference screen.-->
+
 
 </resources>

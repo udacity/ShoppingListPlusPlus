@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- TODO Add the "titles" and the "values" here -->
     <string-array name="pref_sortType_entries_lists">
     </string-array>
 

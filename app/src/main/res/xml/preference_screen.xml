@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- TODO Replace the "null" strings with the correct values. The default should
+     be to sort by creation time.-->
     <ListPreference
         android:key="pref_sort_order_lists"
         android:title="@string/pref_title_sort_lists"

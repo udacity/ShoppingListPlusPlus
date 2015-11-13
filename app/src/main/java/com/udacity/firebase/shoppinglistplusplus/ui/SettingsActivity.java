@@ -49,6 +49,8 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             setPreferenceSummary(preference, newValue);
+            // TODO Grab SharePreferences and set a key value pair to whatever the user selected
+            // for their sort option. newValue.toString() will grab the string value they selected.
             return true;
         }
 

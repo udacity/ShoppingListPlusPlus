@@ -106,12 +106,19 @@ public class ShoppingListsFragment extends Fragment {
         return rootView;
     }
 
+    // TODO We need to recreate the adapter when the user comes back from the SettingsActivity.
+    // Because of this, adapter creation should be moved out of onCreateView.
+    // When creating the adapter, you should grab the key/value pair that was set in SettingsActivity
+    // and modify the Firebase query that is passed to the adapter accordingly.
+
     /**
      * Cleanup the adapter when activity is destroyed.
      */
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO Given that we're recreating the adapter whenever the user comes back to the activity,
+        // is onDestroy the best place to do this cleanup?
         mActiveListAdapter.cleanup();
     }
 
