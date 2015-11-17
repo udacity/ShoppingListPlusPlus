@@ -130,7 +130,13 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
                 mListId, mShoppingList.getOwner(), updatedRemoveItemMap);
 
         /* Do the update */
-        firebaseRef.updateChildren(updatedRemoveItemMap);
+        firebaseRef.updateChildren(updatedRemoveItemMap, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                Utils.updateTimestampReversed(firebaseError, "ActListItemAdap", mListId,
+                        mSharedWithUsers, mShoppingList.getOwner());
+            }
+        });
     }
 
     private void setItemAppearanceBaseOnBoughtStatus(String owner, final TextView textViewBoughtByUser,

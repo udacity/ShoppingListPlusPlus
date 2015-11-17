@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.User;
@@ -85,7 +86,15 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
             Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedListData);
 
             /* Do a deep-path update */
-            firebaseRef.updateChildren(updatedListData);
+            firebaseRef.updateChildren(updatedListData, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    /* Now that we have the timestamp, update the reversed timestamp */
+                    Utils.updateTimestampReversed(firebaseError, LOG_TAG, mListId,
+                            mSharedWith, mOwner);
+                }
+            });
+
         }
     }
 }

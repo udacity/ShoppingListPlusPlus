@@ -527,13 +527,21 @@ public class ActiveListDetailsActivity extends BaseActivity {
             Utils.updateMapForAllWithValue(mSharedWithUsers,
                     mListId, mShoppingList.getOwner(), updatedUserData,
                     propertyToUpdate, null);
+
             /* Appends the timestamp changes for all lists */
             Utils.updateMapWithTimestampLastChanged(mSharedWithUsers,
                     mListId, mShoppingList.getOwner(), updatedUserData);
 
 
             /* Do a deep-path update */
-            mFirebaseRef.updateChildren(updatedUserData);
+            mFirebaseRef.updateChildren(updatedUserData, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    /* Updates the reversed timestamp */
+                    Utils.updateTimestampReversed(firebaseError, LOG_TAG, mListId, mSharedWithUsers,
+                            mShoppingList.getOwner());
+                }
+            });
         } else {
             /**
              * If current user is not shopping, create map to represent User model add to usersShopping map
@@ -550,7 +558,15 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     mListId, mShoppingList.getOwner(), updatedUserData);
 
             /* Do a deep-path update */
-            mFirebaseRef.updateChildren(updatedUserData);
+            mFirebaseRef.updateChildren(updatedUserData, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    /* Updates the reversed timestamp */
+                    Utils.updateTimestampReversed(firebaseError, LOG_TAG, mListId, mSharedWithUsers,
+                            mShoppingList.getOwner());
+                }
+            });
+
         }
     }
 

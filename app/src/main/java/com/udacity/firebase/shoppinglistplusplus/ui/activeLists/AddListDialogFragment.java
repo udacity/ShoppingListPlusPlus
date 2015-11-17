@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.firebase.client.ServerValue;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
@@ -140,7 +141,15 @@ public class AddListDialogFragment extends DialogFragment {
             Utils.updateMapForAllWithValue(null, listId, mEncodedEmail,
                     updateShoppingListData, "", shoppingListMap);
 
-            firebaseRef.updateChildren(updateShoppingListData);
+            /* Do the update */
+            firebaseRef.updateChildren(updateShoppingListData, new Firebase.CompletionListener() {
+                @Override
+                public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                    /* Now that we have the timestamp, update the reversed timestamp */
+                    Utils.updateTimestampReversed(firebaseError, "AddList", listId,
+                            null, mEncodedEmail);
+                }
+            });
 
             /* Close the dialog fragment */
             AddListDialogFragment.this.getDialog().cancel();
