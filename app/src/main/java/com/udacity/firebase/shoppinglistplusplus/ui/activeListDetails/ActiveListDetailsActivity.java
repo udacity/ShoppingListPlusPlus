@@ -307,6 +307,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
          */
         if (id == R.id.action_share_list) {
             Intent intent = new Intent(ActiveListDetailsActivity.this, ShareListActivity.class);
+            // TODO Pass in anything you need in the ShareActivity with an intent extra.
             startActivity(intent);
             return true;
         }

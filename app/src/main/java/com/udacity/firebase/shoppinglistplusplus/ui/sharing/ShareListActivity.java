@@ -25,6 +25,14 @@ public class ShareListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_list);
 
+        // TODO Get the list id from the intent. You'll need it. You should also set a
+        // listener on the current shopping list so that you can update the FriendAdapter using
+        // the setShoppingList method if anything changes. You'll use this ShoppingList object
+        // more heavily soon.
+
+        // TODO I'd also suggest adding a listener for the current sharedWith list and using the
+        // setSharedWith method of the FriendAdapter to update a instance variable in FriendAdapter
+
         /**
          * Link layout elements from XML and setup the toolbar
          */
@@ -54,6 +62,7 @@ public class ShareListActivity extends BaseActivity {
         super.onDestroy();
         /* Set adapter for the listView */
         mFriendAdapter.cleanup();
+        // TODO Make sure to clean up any event listeners.
     }
 
     /**
