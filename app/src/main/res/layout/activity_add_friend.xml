@@ -38,6 +38,7 @@
             android:textColor="@color/black"
             android:textColorHint="@color/dark_grey"
             android:visibility="gone"/>
+        <!-- TODO You should set this to visible -->
     </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>

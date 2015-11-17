@@ -58,6 +58,10 @@ public class AddFriendActivity extends BaseActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
+        // TODO This is where you can add the search code. Tips:
+        // 1.   The easiest way to do this involves just making a new adapter with a new query.
+        // 2.   Since you'll be making lots of adapters, make sure to clean up the old ones.
+        // 3.   If the user has types less than 2 characters, then nothing should be displayed.
 
         }
         });**/
