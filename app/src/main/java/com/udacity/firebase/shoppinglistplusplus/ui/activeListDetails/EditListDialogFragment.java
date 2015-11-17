@@ -40,6 +40,8 @@ public abstract class EditListDialogFragment extends DialogFragment {
         bundle.putInt(Constants.KEY_LAYOUT_RESOURCE, resource);
         bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
         bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
+        // TODO It will be helpful to have a HashMap of shared users. You can add this HashMap to
+        // the bundle using putSerializable.
         return bundle;
     }
 

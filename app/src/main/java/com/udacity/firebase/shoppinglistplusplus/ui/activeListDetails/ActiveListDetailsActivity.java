@@ -181,6 +181,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
             }
         });
 
+        // TODO In addition to storing the current user and the shopping list, many of your dialogs
+        // will need access to a list of users that the list is shared with. You might want to make
+        // a listener for that here.
+
+        // TODO You adapter might also need that list of shared users - see how you passed your
+        // shopping list to your adapter.
 
         /**
          * Set up click listeners for interaction.

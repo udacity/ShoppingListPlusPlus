@@ -75,6 +75,8 @@ public class Utils {
 
         mapToUpdate.put("/" + Constants.FIREBASE_LOCATION_USER_LISTS + "/" + owner + "/"
                 + listId + "/" + propertyToUpdate, valueToUpdate);
+        // TODO Update this method so that it also makes the change to ever user in the sharedWith
+        // list of the shopping list. Right now it is only updating the owner's version of the list.
 
         return mapToUpdate;
     }

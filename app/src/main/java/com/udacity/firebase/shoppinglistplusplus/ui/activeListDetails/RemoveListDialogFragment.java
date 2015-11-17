@@ -33,6 +33,8 @@ public class RemoveListDialogFragment extends DialogFragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
+        // TODO Since this doesn't extend from EditListDialogFragment, it will be helpful to have
+        // a HashMap of shared users here as well.
         removeListDialogFragment.setArguments(bundle);
         return removeListDialogFragment;
     }

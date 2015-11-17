@@ -151,6 +151,15 @@ public class FriendAdapter extends FirebaseListAdapter<User> {
     private HashMap<String, Object> updateFriendInSharedWith(Boolean addFriend, User friendToAddOrRemove) {
         HashMap<String, Object> updatedUserData = new HashMap<String, Object>();
 
+        // TODO This method will become fairly complicated because of the fact that you need to
+        // update the userLists for the user that is either being removed or added.
+        // I encourage you to work through the steps needed for each scenario
+        // (adding a user vs. removing a user). Adding
+        // Firebase.getDefaultConfig().setLogLevel(Logger.Level.DEBUG);
+        // to the application class and looking at the logging output on debug will help you
+        // troubleshoot if you need it!
+
+
         /* Update the sharedWith List for this Shopping List */
         if (addFriend) {
             final HashMap<String, Object> friendForFirebase = (HashMap<String, Object>)
