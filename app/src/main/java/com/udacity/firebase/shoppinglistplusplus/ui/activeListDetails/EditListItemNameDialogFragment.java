@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
@@ -21,11 +22,12 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
     public static EditListItemNameDialogFragment newInstance(ShoppingList shoppingList, String itemName,
-                                                             String itemId, String listId, String encodedEmail) {
+                                                             String itemId, String listId, String encodedEmail,
+                                                             HashMap<String, User> sharedWithUsers) {
         EditListItemNameDialogFragment editListItemNameDialogFragment = new EditListItemNameDialogFragment();
 
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList, R.layout.dialog_edit_item,
-                listId, encodedEmail);
+                listId, encodedEmail, sharedWithUsers);
         bundle.putString(Constants.KEY_LIST_ITEM_NAME, itemName);
         bundle.putString(Constants.KEY_LIST_ITEM_ID, itemId);
         editListItemNameDialogFragment.setArguments(bundle);
@@ -82,7 +84,7 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
                     nameInput);
 
             /* Update affected lists timestamps */
-            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedDataItemToEditMap);
+            Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedDataItemToEditMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedDataItemToEditMap);

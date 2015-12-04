@@ -137,7 +137,7 @@ public class AddListDialogFragment extends DialogFragment {
             HashMap<String, Object> shoppingListMap = (HashMap<String, Object>)
                     new ObjectMapper().convertValue(newShoppingList, Map.class);
 
-            Utils.updateMapForAllWithValue(listId, mEncodedEmail,
+            Utils.updateMapForAllWithValue(null, listId, mEncodedEmail,
                     updateShoppingListData, "", shoppingListMap);
 
             firebaseRef.updateChildren(updateShoppingListData);

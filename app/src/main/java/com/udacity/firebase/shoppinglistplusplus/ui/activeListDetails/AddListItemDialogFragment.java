@@ -8,6 +8,7 @@ import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
@@ -23,10 +24,11 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
     public static AddListItemDialogFragment newInstance(ShoppingList shoppingList, String listId,
-                                                        String encodedEmail) {
+                                                        String encodedEmail,
+                                                        HashMap<String, User> sharedWithUsers) {
         AddListItemDialogFragment addListItemDialogFragment = new AddListItemDialogFragment();
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList,
-                R.layout.dialog_add_item, listId, encodedEmail);
+                R.layout.dialog_add_item, listId, encodedEmail, sharedWithUsers);
         addListItemDialogFragment.setArguments(bundle);
 
         return addListItemDialogFragment;
@@ -80,7 +82,8 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
                     + mListId + "/" + itemId, itemToAdd);
 
             /* Update affected lists timestamps */
-            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedItemToAddMap);
+            Utils.updateMapWithTimestampLastChanged(mSharedWith,
+                    mListId, mOwner, updatedItemToAddMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedItemToAddMap);

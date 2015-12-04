@@ -11,6 +11,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
@@ -22,19 +23,20 @@ import java.util.HashMap;
 public class RemoveListDialogFragment extends DialogFragment {
     String mListId;
     String mListOwner;
+    HashMap mSharedWith;
 
     final static String LOG_TAG = RemoveListDialogFragment.class.getSimpleName();
 
     /**
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
-    public static RemoveListDialogFragment newInstance(ShoppingList shoppingList, String listId) {
+    public static RemoveListDialogFragment newInstance(ShoppingList shoppingList, String listId,
+                                                       HashMap<String, User> sharedWithUsers) {
         RemoveListDialogFragment removeListDialogFragment = new RemoveListDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
-        // TODO Since this doesn't extend from EditListDialogFragment, it will be helpful to have
-        // a HashMap of shared users here as well.
+        bundle.putSerializable(Constants.KEY_SHARED_WITH_USERS, sharedWithUsers);
         removeListDialogFragment.setArguments(bundle);
         return removeListDialogFragment;
     }
@@ -47,6 +49,7 @@ public class RemoveListDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
         mListOwner = getArguments().getString(Constants.KEY_LIST_OWNER);
+        mSharedWith = (HashMap) getArguments().getSerializable(Constants.KEY_SHARED_WITH_USERS);
     }
 
     @Override
@@ -81,7 +84,7 @@ public class RemoveListDialogFragment extends DialogFragment {
         HashMap<String, Object> removeListData = new HashMap<String, Object>();
 
         /* Remove the ShoppingLists from both user lists and active lists */
-        Utils.updateMapForAllWithValue(mListId, mListOwner, removeListData, "", null);
+        Utils.updateMapForAllWithValue(mSharedWith, mListId, mListOwner, removeListData, "", null);
 
         /* Remove the associated list items */
         removeListData.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId,

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
@@ -22,10 +23,11 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
      * Public static constructor that creates fragment and passes a bundle with data into it when adapter is created
      */
     public static EditListNameDialogFragment newInstance(ShoppingList shoppingList, String listId,
-                                                         String encodedEmail) {
+                                                         String encodedEmail,
+                                                         HashMap<String, User> sharedWithUsers) {
         EditListNameDialogFragment editListNameDialogFragment = new EditListNameDialogFragment();
         Bundle bundle = EditListDialogFragment.newInstanceHelper(shoppingList,
-                R.layout.dialog_edit_list, listId, encodedEmail);
+                R.layout.dialog_edit_list, listId, encodedEmail, sharedWithUsers);
         bundle.putString(Constants.KEY_LIST_NAME, shoppingList.getListName());
         editListNameDialogFragment.setArguments(bundle);
         return editListNameDialogFragment;
@@ -76,11 +78,11 @@ public class EditListNameDialogFragment extends EditListDialogFragment {
             HashMap<String, Object> updatedListData = new HashMap<String, Object>();
 
             /* Add the value to update at the specified property for all lists */
-            Utils.updateMapForAllWithValue(mListId, mOwner, updatedListData,
+            Utils.updateMapForAllWithValue(mSharedWith, mListId, mOwner, updatedListData,
                     Constants.FIREBASE_PROPERTY_LIST_NAME, inputListName);
 
             /* Update affected lists timestamps */
-            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedListData);
+            Utils.updateMapWithTimestampLastChanged(mSharedWith, mListId, mOwner, updatedListData);
 
             /* Do a deep-path update */
             firebaseRef.updateChildren(updatedListData);

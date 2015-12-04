@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+
+import java.util.HashMap;
 
 /**
  * Base class for {@link DialogFragment}s involved with editing a shopping list.
@@ -24,24 +27,28 @@ public abstract class EditListDialogFragment extends DialogFragment {
     String mListId, mOwner, mEncodedEmail;
     EditText mEditTextForList;
     int mResource;
+    HashMap mSharedWith;
 
     /**
      * Helper method that creates a basic bundle of all of the information needed to change
      * values in a shopping list.
      *
-     * @param shoppingList
-     * @param resource
-     * @return
+     * @param shoppingList The shopping list that the dialog is editing
+     * @param resource The xml layout file associated with the dialog
+     * @param listId The id of the shopping list the dialog is editing
+     * @param encodedEmail The encoded email of the current user
+     * @param sharedWithUsers The HashMap containing all users that the current shopping list
+     *                        is shared with
+     * @return The bundle containing all the arguments.
      */
     protected static Bundle newInstanceHelper(ShoppingList shoppingList, int resource, String listId,
-                                              String encodedEmail) {
+                                              String encodedEmail, HashMap<String, User> sharedWithUsers) {
         Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.KEY_SHARED_WITH_USERS, sharedWithUsers);
         bundle.putString(Constants.KEY_LIST_ID, listId);
         bundle.putInt(Constants.KEY_LAYOUT_RESOURCE, resource);
         bundle.putString(Constants.KEY_LIST_OWNER, shoppingList.getOwner());
         bundle.putString(Constants.KEY_ENCODED_EMAIL, encodedEmail);
-        // TODO It will be helpful to have a HashMap of shared users. You can add this HashMap to
-        // the bundle using putSerializable.
         return bundle;
     }
 
@@ -51,6 +58,7 @@ public abstract class EditListDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSharedWith = (HashMap) getArguments().getSerializable(Constants.KEY_SHARED_WITH_USERS);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
         mResource = getArguments().getInt(Constants.KEY_LAYOUT_RESOURCE);
         mOwner = getArguments().getString(Constants.KEY_LIST_OWNER);

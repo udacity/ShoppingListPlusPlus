@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class ActiveListDetailsActivity extends BaseActivity {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
-    private Firebase mCurrentListRef, mCurrentUserRef;
+    private Firebase mCurrentListRef, mCurrentUserRef, mSharedWithRef;
     private ActiveListItemAdapter mActiveListItemAdapter;
     private Button mButtonShopping;
     private TextView mTextViewPeopleShopping;
@@ -50,7 +50,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
     /* Stores whether the current user is the owner */
     private boolean mCurrentUserIsOwner = false;
     private ShoppingList mShoppingList;
-    private ValueEventListener mCurrentUserRefListener, mCurrentListRefListener;
+    private ValueEventListener mCurrentUserRefListener, mCurrentListRefListener, mSharedWithListener;
+    private HashMap<String, User> mSharedWithUsers;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
          */
         mCurrentListRef = new Firebase(Constants.FIREBASE_URL_USER_LISTS).child(mEncodedEmail).child(mListId);
         mCurrentUserRef = new Firebase(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
+        mSharedWithRef = new Firebase (Constants.FIREBASE_URL_LISTS_SHARED_WITH).child(mListId);
         Firebase listItemsRef = new Firebase(Constants.FIREBASE_URL_SHOPPING_LIST_ITEMS).child(mListId);
 
 
@@ -181,12 +183,23 @@ public class ActiveListDetailsActivity extends BaseActivity {
             }
         });
 
-        // TODO In addition to storing the current user and the shopping list, many of your dialogs
-        // will need access to a list of users that the list is shared with. You might want to make
-        // a listener for that here.
+        mSharedWithListener = mSharedWithRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mSharedWithUsers = new HashMap<String, User>();
+                for (DataSnapshot currentUser : dataSnapshot.getChildren()) {
+                    mSharedWithUsers.put(currentUser.getKey(), currentUser.getValue(User.class));
+                }
+                mActiveListItemAdapter.setSharedWithUsers(mSharedWithUsers);
+            }
 
-        // TODO You adapter might also need that list of shared users - see how you passed your
-        // shopping list to your adapter.
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.e(LOG_TAG,
+                        getString(R.string.log_error_the_read_failed) +
+                                firebaseError.getMessage());
+            }
+        });
 
         /**
          * Set up click listeners for interaction.
@@ -340,6 +353,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
         mActiveListItemAdapter.cleanup();
         mCurrentListRef.removeEventListener(mCurrentListRefListener);
         mCurrentUserRef.removeEventListener(mCurrentUserRefListener);
+        mSharedWithRef.removeEventListener(mSharedWithListener);
     }
 
     /**
@@ -455,7 +469,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void removeList() {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = RemoveListDialogFragment.newInstance(mShoppingList, mListId);
+        DialogFragment dialog = RemoveListDialogFragment.newInstance(mShoppingList, mListId,
+                mSharedWithUsers);
         dialog.show(getFragmentManager(), "RemoveListDialogFragment");
     }
 
@@ -464,7 +479,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void showAddListItemDialog(View view) {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = AddListItemDialogFragment.newInstance(mShoppingList, mListId, mEncodedEmail);
+        DialogFragment dialog = AddListItemDialogFragment.newInstance(mShoppingList, mListId,
+                mEncodedEmail, mSharedWithUsers);
         dialog.show(getFragmentManager(), "AddListItemDialogFragment");
     }
 
@@ -473,7 +489,8 @@ public class ActiveListDetailsActivity extends BaseActivity {
      */
     public void showEditListNameDialog() {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = EditListNameDialogFragment.newInstance(mShoppingList, mListId, mEncodedEmail);
+        DialogFragment dialog = EditListNameDialogFragment.newInstance(mShoppingList, mListId,
+                mEncodedEmail, mSharedWithUsers);
         dialog.show(this.getFragmentManager(), "EditListNameDialogFragment");
     }
 
@@ -486,7 +503,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
     public void showEditListItemNameDialog(String itemName, String itemId) {
         /* Create an instance of the dialog fragment and show it */
         DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, itemName,
-                itemId, mListId, mEncodedEmail);
+                itemId, mListId, mEncodedEmail, mSharedWithUsers);
 
         dialog.show(this.getFragmentManager(), "EditListItemNameDialogFragment");
     }
@@ -507,10 +524,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
         if (mShopping) {
 
             /* Add the value to update at the specified property for all lists */
-            Utils.updateMapForAllWithValue(mListId, mShoppingList.getOwner(), updatedUserData,
+            Utils.updateMapForAllWithValue(mSharedWithUsers,
+                    mListId, mShoppingList.getOwner(), updatedUserData,
                     propertyToUpdate, null);
             /* Appends the timestamp changes for all lists */
-            Utils.updateMapWithTimestampLastChanged(mListId, mShoppingList.getOwner(), updatedUserData);
+            Utils.updateMapWithTimestampLastChanged(mSharedWithUsers,
+                    mListId, mShoppingList.getOwner(), updatedUserData);
 
 
             /* Do a deep-path update */
@@ -523,10 +542,12 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     new ObjectMapper().convertValue(mCurrentUser, Map.class);
 
             /* Add the value to update at the specified property for all lists */
-            Utils.updateMapForAllWithValue(mListId, mShoppingList.getOwner(), updatedUserData, propertyToUpdate, currentUser);
+            Utils.updateMapForAllWithValue(mSharedWithUsers,
+                    mListId, mShoppingList.getOwner(), updatedUserData, propertyToUpdate, currentUser);
 
             /* Appends the timestamp changes for all lists */
-            Utils.updateMapWithTimestampLastChanged(mListId, mShoppingList.getOwner(), updatedUserData);
+            Utils.updateMapWithTimestampLastChanged(mSharedWithUsers,
+                    mListId, mShoppingList.getOwner(), updatedUserData);
 
             /* Do a deep-path update */
             mFirebaseRef.updateChildren(updatedUserData);
