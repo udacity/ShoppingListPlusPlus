@@ -4,10 +4,10 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.HashMap;
 
@@ -63,7 +63,6 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
     /**
      * Change selected list item name to the editText input if it is not empty
      */
-    // TODO Update this method.
     protected void doListEdit() {
         String nameInput = mEditTextForList.getText().toString();
 
@@ -74,24 +73,19 @@ public class EditListItemNameDialogFragment extends EditListDialogFragment {
         if (!nameInput.equals("") && !nameInput.equals(mItemName)) {
             Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
 
-            /* Make a map for the item you are editing the name of */
-            HashMap<String, Object> updatedItemToAddMap = new HashMap<String, Object>();
+            /* Make a map for the item you are changing the name of */
+            HashMap<String, Object> updatedDataItemToEditMap = new HashMap<String, Object>();
 
             /* Add the new name to the update map*/
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/"
+            updatedDataItemToEditMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/"
                             + mListId + "/" + mItemId + "/" + Constants.FIREBASE_PROPERTY_ITEM_NAME,
                     nameInput);
 
-            /* Make the timestamp for last changed */
-            HashMap<String, Object> changedTimestampMap = new HashMap<>();
-            changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-            /* Add the updated timestamp */
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS +
-                    "/" + mListId + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+            /* Update affected lists timestamps */
+            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedDataItemToEditMap);
 
             /* Do the update */
-            firebaseRef.updateChildren(updatedItemToAddMap);
+            firebaseRef.updateChildren(updatedDataItemToEditMap);
 
         }
     }

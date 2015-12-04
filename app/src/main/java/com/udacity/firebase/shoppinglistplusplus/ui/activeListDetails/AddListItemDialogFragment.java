@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +51,6 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
     /**
      * Adds new item to the current shopping list
      */
-    // TODO Update this method.
     @Override
     protected void doListEdit() {
         String mItemName = mEditTextForList.getText().toString();
@@ -80,13 +79,8 @@ public class AddListItemDialogFragment extends EditListDialogFragment {
             updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/"
                     + mListId + "/" + itemId, itemToAdd);
 
-            /* Make the timestamp for last changed */
-            HashMap<String, Object> changedTimestampMap = new HashMap<>();
-            changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-            /* Add the updated timestamp */
-            updatedItemToAddMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS +
-                    "/" + mListId + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+            /* Update affected lists timestamps */
+            Utils.updateMapWithTimestampLastChanged(mListId, mOwner, updatedItemToAddMap);
 
             /* Do the update */
             firebaseRef.updateChildren(updatedItemToAddMap);

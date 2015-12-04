@@ -13,13 +13,16 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.Firebase;
 import com.firebase.client.ServerValue;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Adds a new shopping list
@@ -97,7 +100,6 @@ public class AddListDialogFragment extends DialogFragment {
     /**
      * Add new active list
      */
-    // TODO Update this method.
     public void addShoppingList() {
         String userEnteredName = mEditTextListName.getText().toString();
 
@@ -109,12 +111,18 @@ public class AddListDialogFragment extends DialogFragment {
             /**
              * Create Firebase references
              */
-            Firebase listsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
-            Firebase newListRef = listsRef.push();
+            Firebase userListsRef = new Firebase(Constants.FIREBASE_URL_USER_LISTS).
+                    child(mEncodedEmail);
+            final Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
+
+            Firebase newListRef = userListsRef.push();
 
             /* Save listsRef.push() to maintain same random Id */
             final String listId = newListRef.getKey();
 
+            /* HashMap for data to update */
+            HashMap<String, Object> updateShoppingListData = new HashMap<>();
+            
             /**
              * Set raw version of date to the ServerValue.TIMESTAMP value and save into
              * timestampCreatedMap
@@ -126,13 +134,17 @@ public class AddListDialogFragment extends DialogFragment {
             ShoppingList newShoppingList = new ShoppingList(userEnteredName, mEncodedEmail,
                     timestampCreated);
 
-            /* Add the shopping list */
-            newListRef.setValue(newShoppingList);
+            HashMap<String, Object> shoppingListMap = (HashMap<String, Object>)
+                    new ObjectMapper().convertValue(newShoppingList, Map.class);
+
+            Utils.updateMapForAllWithValue(listId, mEncodedEmail,
+                    updateShoppingListData, "", shoppingListMap);
+
+            firebaseRef.updateChildren(updateShoppingListData);
 
             /* Close the dialog fragment */
             AddListDialogFragment.this.getDialog().cancel();
         }
-
     }
 }
 

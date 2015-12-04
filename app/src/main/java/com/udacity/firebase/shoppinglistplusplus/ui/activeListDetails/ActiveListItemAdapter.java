@@ -13,7 +13,6 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
-import com.firebase.client.ServerValue;
 import com.firebase.client.ValueEventListener;
 import com.firebase.ui.FirebaseListAdapter;
 import com.udacity.firebase.shoppinglistplusplus.R;
@@ -21,6 +20,7 @@ import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingListItem;
 import com.udacity.firebase.shoppinglistplusplus.model.User;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.HashMap;
 
@@ -109,7 +109,6 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         });
     }
 
-    // TODO Update this method.
     private void removeItem(String itemId) {
         Firebase firebaseRef = new Firebase(Constants.FIREBASE_URL);
 
@@ -120,13 +119,8 @@ public class ActiveListItemAdapter extends FirebaseListAdapter<ShoppingListItem>
         updatedRemoveItemMap.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/"
                 + mListId + "/" + itemId, null);
 
-        /* Make the timestamp for last changed */
-        HashMap<String, Object> changedTimestampMap = new HashMap<>();
-        changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
         /* Add the updated timestamp */
-        updatedRemoveItemMap.put("/" + Constants.FIREBASE_LOCATION_ACTIVE_LISTS +
-                "/" + mListId + "/" + Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
+        Utils.updateMapWithTimestampLastChanged(mListId, mShoppingList.getOwner(), updatedRemoveItemMap);
 
         /* Do the update */
         firebaseRef.updateChildren(updatedRemoveItemMap);
