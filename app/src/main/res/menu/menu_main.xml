@@ -9,11 +9,11 @@
         android:title="@string/action_sort"
         android:visible="false"
         app:showAsAction="ifRoom" />
-    <!-- TODO You should change the visibility on this menu item to true -->
     <item
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/action_logout"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="never" />
 </menu>
+
