@@ -46,6 +46,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.login.LoginActivity" />
         </activity>
-        <!-- TODO Make sure to add the activity -->
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/action_settings" />
     </application>
 </manifest>

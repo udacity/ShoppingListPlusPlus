@@ -1,5 +1,6 @@
 package com.udacity.firebase.shoppinglistplusplus.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -8,6 +9,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 /**
  * SettingsActivity represents preference screen and functionality
@@ -49,8 +51,9 @@ public class SettingsActivity extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             setPreferenceSummary(preference, newValue);
-            // TODO Grab SharePreferences and set a key value pair to whatever the user selected
-            // for their sort option. newValue.toString() will grab the string value they selected.
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences.Editor spe = sharedPref.edit();
+            spe.putString(Constants.KEY_PREF_SORT_ORDER_LISTS, newValue.toString()).apply();
             return true;
         }
 

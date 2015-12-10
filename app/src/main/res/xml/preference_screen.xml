@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- TODO Replace the "null" strings with the correct values. The default should
-     be to sort by creation time.-->
     <ListPreference
         android:key="pref_sort_order_lists"
         android:title="@string/pref_title_sort_lists"
         android:dialogTitle="@string/pref_sort_list_label_sortType"
         android:entries="@array/pref_sortType_entries_lists"
-        android:summary="null"
+        android:summary="@string/pref_sort_list_label_publish_time_entry"
         android:entryValues="@array/pref_sortType_values_lists"
-        android:defaultValue="null"
+        android:defaultValue="@string/sort_by_publish_time_value"
         />
 </PreferenceScreen>

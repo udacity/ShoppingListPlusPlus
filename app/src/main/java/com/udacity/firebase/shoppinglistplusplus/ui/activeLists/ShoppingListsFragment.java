@@ -2,7 +2,9 @@ package com.udacity.firebase.shoppinglistplusplus.ui.activeLists;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.Query;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 import com.udacity.firebase.shoppinglistplusplus.ui.activeListDetails.ActiveListDetailsActivity;
@@ -65,24 +68,6 @@ public class ShoppingListsFragment extends Fragment {
         initializeScreen(rootView);
 
         /**
-         * Create Firebase references
-         */
-        Firebase activeListsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
-
-        /**
-         * Create the adapter, giving it the activity, model class, layout for each row in
-         * the list and finally, a reference to the Firebase location with the list data
-         */
-        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
-                R.layout.single_active_list, activeListsRef, mEncodedEmail);
-
-
-        /**
-         * Set the adapter to the mListView
-         */
-        mListView.setAdapter(mActiveListAdapter);
-
-        /**
          * Set interactive bits, such as click events and adapters
          */
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,20 +90,52 @@ public class ShoppingListsFragment extends Fragment {
 
         return rootView;
     }
-
-    // TODO We need to recreate the adapter when the user comes back from the SettingsActivity.
-    // Because of this, adapter creation should be moved out of onCreateView.
-    // When creating the adapter, you should grab the key/value pair that was set in SettingsActivity
-    // and modify the Firebase query that is passed to the adapter accordingly.
-
     /**
-     * Cleanup the adapter when activity is destroyed.
+     * Updates the order of mListView onResume to handle sortOrderChanges properly
      */
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // TODO Given that we're recreating the adapter whenever the user comes back to the activity,
-        // is onDestroy the best place to do this cleanup?
+    public void onResume() {
+        super.onResume();
+        final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortOrder = sharedPref.getString(Constants.KEY_PREF_SORT_ORDER_LISTS, Constants.ORDER_BY_KEY);
+
+        Query orderedActiveUserListsRef;
+        Firebase activeListsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
+        /**
+         * Sort active lists by "date created"
+         * if it's been selected in the SettingsActivity
+         */
+        if (sortOrder.equals(Constants.ORDER_BY_KEY)) {
+            orderedActiveUserListsRef = activeListsRef.orderByKey();
+        } else {
+
+            /**
+             * Sort active by lists by name or datelastChanged. Otherwise
+             * depending on what's been selected in SettingsActivity
+             */
+
+            orderedActiveUserListsRef = activeListsRef.orderByChild(sortOrder);
+        }
+
+        /**
+         * Create the adapter with selected sort order
+         */
+        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
+                R.layout.single_active_list, orderedActiveUserListsRef,
+                mEncodedEmail);
+
+        /**
+         * Set the adapter to the mListView
+         */
+        mListView.setAdapter(mActiveListAdapter);
+    }
+
+    /**
+     * Cleanup the adapter when activity is paused.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
         mActiveListAdapter.cleanup();
     }
 

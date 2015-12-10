@@ -2,13 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.MainActivity">
-    <!-- TODO This should be set to true so that the button appears -->
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_white"
         android:orderInCategory="100"
         android:title="@string/action_sort"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_logout"

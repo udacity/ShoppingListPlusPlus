@@ -207,8 +207,7 @@
 
 
     <!-- Values -->
-    <!-- TODO Add preference values here. These can be referenced in the arrays.xml which
-    controls what is in the preference screen.-->
-
-
+    <string name="sort_by_publish_time_value">orderByPushKey</string>
+    <string name="sort_by_list_name_value">listName</string>
+    <string name="sort_by_owner_value">owner</string>
 </resources>

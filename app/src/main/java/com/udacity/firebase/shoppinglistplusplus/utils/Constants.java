@@ -52,7 +52,7 @@ public final class Constants {
     public static final String KEY_ENCODED_EMAIL = "ENCODED_EMAIL";
     public static final String KEY_LIST_OWNER = "LIST_OWNER";
     public static final String KEY_GOOGLE_EMAIL = "GOOGLE_EMAIL";
-
+    public static final String KEY_PREF_SORT_ORDER_LISTS = "PERF_SORT_ORDER_LISTS";
 
 
     /**
@@ -61,6 +61,12 @@ public final class Constants {
     public static final String PASSWORD_PROVIDER = "password";
     public static final String GOOGLE_PROVIDER = "google";
     public static final String PROVIDER_DATA_DISPLAY_NAME = "displayName";
+
+    /**
+     * Constant for sorting
+     */
+    public static final String ORDER_BY_KEY = "orderByPushKey";
+    public static final String ORDER_BY_OWNER_EMAIL = "orderByOwnerEmail";
 
 
 

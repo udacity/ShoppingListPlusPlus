@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- TODO Add the "titles" and the "values" here -->
     <string-array name="pref_sortType_entries_lists">
+        <item>@string/pref_sort_list_label_publish_time_entry</item>
+        <item>@string/pref_sort_list_label_list_name_entry</item>
+        <item>@string/pref_sort_list_label_owner_entry</item>
     </string-array>
 
     <string-array name="pref_sortType_values_lists">
+        <item>@string/sort_by_publish_time_value</item>
+        <item>@string/sort_by_list_name_value</item>
+        <item>@string/sort_by_owner_value</item>
     </string-array>
-
 </resources>
+
