@@ -64,7 +64,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
          * Setup the adapter
          */
         mActiveListItemAdapter = new ActiveListItemAdapter(this, ShoppingListItem.class,
-                R.layout.single_active_list_item, listItemsRef);
+                R.layout.single_active_list_item, listItemsRef, mListId);
         /* Create ActiveListItemAdapter and set to listView */
         mListView.setAdapter(mActiveListItemAdapter);
 
@@ -99,6 +99,11 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     return;
                 }
                 mShoppingList = shoppingList;
+                /**
+                 * Pass the shopping list to the adapter if it is not null.
+                 * We do this here because mShoppingList is null when first created.
+                 */
+                mActiveListItemAdapter.setShoppingList(mShoppingList);
 
                 /* Calling invalidateOptionsMenu causes onCreateOptionsMenu to be called */
                 invalidateOptionsMenu();
@@ -127,9 +132,17 @@ public class ActiveListDetailsActivity extends BaseActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 /* Check that the view is not the empty footer item */
                 if(view.getId() != R.id.list_view_footer_empty) {
-                    showEditListItemNameDialog();
+                    ShoppingListItem shoppingListItem = mActiveListItemAdapter.getItem(position);
+
+                    if (shoppingListItem != null) {
+                        String itemName = shoppingListItem.getItemName();
+                        String itemId = mActiveListItemAdapter.getRef(position).getKey();
+
+                        showEditListItemNameDialog(itemName, itemId);
+                        return true;
+                    }
                 }
-                return true;
+                return false;
             }
         });
     }
@@ -266,10 +279,14 @@ public class ActiveListDetailsActivity extends BaseActivity {
 
     /**
      * Show the edit list item name dialog after longClick on the particular item
+     * @param itemName
+     * @param itemId
      */
-    public void showEditListItemNameDialog() {
+    public void showEditListItemNameDialog(String itemName, String itemId) {
         /* Create an instance of the dialog fragment and show it */
-        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, mListId);
+        DialogFragment dialog = EditListItemNameDialogFragment.newInstance(mShoppingList, itemName,
+                itemId, mListId);
+
         dialog.show(this.getFragmentManager(), "EditListItemNameDialogFragment");
     }
 
