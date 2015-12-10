@@ -162,6 +162,7 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     mButtonShopping.setText(getString(R.string.button_start_shopping));
                     mButtonShopping.setBackgroundColor(ContextCompat.getColor(ActiveListDetailsActivity.this, R.color.primary_dark));
                     mShopping = false;
+
                 }
 
                 setWhosShoppingText(mShoppingList.getUsersShopping());
@@ -191,11 +192,16 @@ public class ActiveListDetailsActivity extends BaseActivity {
                     ShoppingListItem shoppingListItem = mActiveListItemAdapter.getItem(position);
 
                     if (shoppingListItem != null) {
-                        String itemName = shoppingListItem.getItemName();
-                        String itemId = mActiveListItemAdapter.getRef(position).getKey();
-
-                        showEditListItemNameDialog(itemName, itemId);
-                        return true;
+                        /*
+                        If the person is the owner and not shopping and the item is not bought, then
+                        they can edit it.
+                         */
+                        if (shoppingListItem.getOwner().equals(mEncodedEmail) && !mShopping && !shoppingListItem.isBought()) {
+                            String itemName = shoppingListItem.getItemName();
+                            String itemId = mActiveListItemAdapter.getRef(position).getKey();
+                            showEditListItemNameDialog(itemName, itemId);
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -223,8 +229,11 @@ public class ActiveListDetailsActivity extends BaseActivity {
                                 updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT, true);
                                 updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT_BY, mEncodedEmail);
                             } else {
-                                updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT, false);
-                                updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT_BY, null);
+                                /* Return selected item only if it was bought by current user */
+                                if (selectedListItem.getBoughtBy().equals(mEncodedEmail)) {
+                                    updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT, false);
+                                    updatedItemBoughtData.put(Constants.FIREBASE_PROPERTY_BOUGHT_BY, null);
+                                }
                             }
 
                             /* Do update */
