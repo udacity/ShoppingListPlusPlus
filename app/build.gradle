@@ -45,6 +45,8 @@ dependencies {
 
     compile 'com.firebase:firebase-client-android:2.4.0'
 
+    // TODO Add the library for FirebaseUI here
+
     /* For Google Play Services */
     compile 'com.google.android.gms:play-services-safetynet:8.3.0'
     compile 'com.google.android.gms:play-services-auth:8.3.0'

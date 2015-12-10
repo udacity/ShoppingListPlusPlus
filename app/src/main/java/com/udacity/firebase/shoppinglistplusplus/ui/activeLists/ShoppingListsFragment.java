@@ -74,15 +74,21 @@ public class ShoppingListsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         initializeScreen(rootView);
 
+        // TODO Here is where you need to set up the adapter. You'll also need to delete
+        // your old code that referenced the single "activeList", instead, you should save
+        // data to "activeLists" (plural).
+
         /**
          * Create Firebase references
          */
+        // TODO This is referring to an old location
         Firebase refListName = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
 
         /**
          * Add ValueEventListeners to Firebase references
          * to control get data and control behavior and visibility of elements
          */
+        // TODO This is referring to an old location
         refListName.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,6 +129,7 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
+        // TODO This OnClickListener is old code.
         mTextViewListName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +145,7 @@ public class ShoppingListsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO Don't forget to clean up your adapter!
     }
 
 
@@ -147,6 +155,7 @@ public class ShoppingListsFragment extends Fragment {
     private void initializeScreen(View rootView) {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
         // Get the TextViews in the single_active_list layout for list name, edit time and owner
+        // TODO Clean up the code here. Do you need all these TextViews?
         mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
         mTextViewListOwner = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
         mTextViewEditTime = (TextView) rootView.findViewById(R.id.text_view_edit_time);
