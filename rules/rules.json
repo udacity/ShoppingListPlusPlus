@@ -1,5 +1,8 @@
 {
   "rules": {
+    // TODO You should remove these two rules, but move them into each root node.
+    // If you don't, no matter what read or write rules you write in the children
+    // nodes, they will evaluate to true.
     ".read" : "true",
     ".write" : "true",
     "sharedWith": {
@@ -149,6 +152,8 @@
         }
       }
     },
+    // TODO You can write the read rule in this node.
+    // READ: A user must be logged in to see a list of users
     "users": {
       "$userEncodedEmail": {
         ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
