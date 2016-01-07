@@ -1,11 +1,8 @@
 {
   "rules": {
-    // TODO You should remove these two rules, but move them into each root node.
-    // If you don't, no matter what read or write rules you write in the children
-    // nodes, they will evaluate to true.
-    ".read" : "true",
-    ".write" : "true",
     "sharedWith": {
+      ".read" : "true",
+      ".write" : "true",
       "$listId": {
         "$userId": {
           ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
@@ -34,6 +31,8 @@
       }
     },
     "shoppingListItems": {
+      ".read" : "true",
+      ".write" : "true",
       "$listId": {
         "$itemId": {
           ".validate": "newData.hasChildren(['itemName', 'owner'])",
@@ -56,6 +55,8 @@
       }
     },
     "userFriends": {
+      ".read" : "true",
+      ".write" : "true",
       "$userEncodedEmail": {
         "$friendEncodedEmail": {
           ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
@@ -84,6 +85,8 @@
       }
     },
     "userLists": {
+      ".read" : "true",
+      ".write" : "true",
       "$userEncodedEmail": {
         "$listId": {
           ".validate": "newData.hasChildren(['listName', 'owner', 'timestampCreated', 'timestampLastChanged'])",
@@ -152,9 +155,9 @@
         }
       }
     },
-    // TODO You can write the read rule in this node.
-    // READ: A user must be logged in to see a list of users
     "users": {
+      ".read": "auth != null",
+      ".write" : "true",      
       "$userEncodedEmail": {
         ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
         "name": {
