@@ -2,8 +2,28 @@
   "rules": {
     ".read" : "true",
     ".write" : "true",
-    // TODO You can write the rules for the shoppingListItems here. Use the above rules as examples.
-    
+    "shoppingListItems": {
+      "$listId": {
+        "$itemId": {
+          ".validate": "newData.hasChildren(['itemName', 'owner'])",
+          "itemName": {
+            ".validate": "newData.isString()"
+          },
+          "owner": {
+            ".validate": "newData.isString()"
+          },
+          "boughtBy": {
+            ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)"
+          },
+          "bought": {
+            ".validate": "newData.isBoolean() || newData.val() == null"
+          },
+          "$other": {
+            ".validate": "false"
+          }
+        }
+      }
+    },
     "userFriends": {
       "$userEncodedEmail": {
         "$friendEncodedEmail": {
