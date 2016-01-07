@@ -12,6 +12,8 @@ public class ShoppingListApplication extends android.app.Application {
         super.onCreate();
         /* Initialize Firebase */
         Firebase.setAndroidContext(this);
+        // TODO The application code is where all "setup" code should go.
+        // Consider putting your off-line code here.
     }
 
 }
