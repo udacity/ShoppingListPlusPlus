@@ -2,6 +2,7 @@
   "rules": {
     ".read" : "true",
     ".write" : "true",
+    // TODO Add the additional validation rules for userLists and sharedWith here.
     "shoppingListItems": {
       "$listId": {
         "$itemId": {
