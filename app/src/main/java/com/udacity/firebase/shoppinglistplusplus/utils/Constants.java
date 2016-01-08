@@ -17,6 +17,8 @@ public final class Constants {
     public static final String FIREBASE_LOCATION_USER_FRIENDS = "userFriends";
     public static final String FIREBASE_LOCATION_LISTS_SHARED_WITH = "sharedWith";
     public static final String FIREBASE_LOCATION_UID_MAPPINGS = "uidMappings";
+    public static final String FIREBASE_LOCATION_OWNER_MAPPINGS = "ownerMappings";
+
 
 
     /**

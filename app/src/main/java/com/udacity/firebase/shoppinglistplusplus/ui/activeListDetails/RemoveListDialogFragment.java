@@ -90,7 +90,8 @@ public class RemoveListDialogFragment extends DialogFragment {
         removeListData.put("/" + Constants.FIREBASE_LOCATION_SHOPPING_LIST_ITEMS + "/" + mListId,
                 null);
 
-        // TODO You're going to want to remove the mapping for ownership when the list is deleted.
+        removeListData.put("/" + Constants.FIREBASE_LOCATION_OWNER_MAPPINGS + "/" + mListId,
+                null);
         /* Do a deep-path update */
         firebaseRef.updateChildren(removeListData, new Firebase.CompletionListener() {
             @Override

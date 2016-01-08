@@ -31,13 +31,9 @@
       }
     },
     "shoppingListItems": {
-      // TODO You'll probably want to remove that read rule and replace it with the shiney new
-      // read rule you'll be writing.
-      // READ: The owner or anyone shared on the shopping list can read the shopping list items for
-      // that shopping list.
-      ".read" : "true",
       ".write" : "true",
       "$listId": {
+        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",        
         "$itemId": {
           ".validate": "newData.hasChildren(['itemName', 'owner'])",
           "itemName": {
@@ -193,7 +189,12 @@
         ".read": "auth != null",
         ".write": "auth.uid == $uid && data.val() == null"
       }
+    },
+    "ownerMappings": {
+      "$listId": {
+        ".read": "auth != null",
+        ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == data.val() || auth != null && root.child('uidMappings').child(auth.uid).val() == newData.val()"
+      }
     }
-    // TODO You can add any additional nodes here.
   }
 }
