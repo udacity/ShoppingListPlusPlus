@@ -398,38 +398,34 @@ public class LoginActivity extends BaseActivity {
         /* Get username from authData */
         final String userName = (String) authData.getProviderData().get(Constants.PROVIDER_DATA_DISPLAY_NAME);
 
-        /* If no user exists, make a user */
+        /* Make a user */
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(mEncodedEmail);
-        userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
+
+        HashMap<String, Object> timestampJoined = new HashMap<>();
+        timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+        /* Create a HashMap version of the user to add */
+        User newUser = new User(userName, mEncodedEmail, timestampJoined);
+        HashMap<String, Object> newUserMap = (HashMap<String, Object>)
+                new ObjectMapper().convertValue(newUser, Map.class);
+
+        /* Add the user and UID to the update map */
+        userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_USERS + "/" + mEncodedEmail,
+                newUserMap);
+        userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
+                + authData.getUid(), mEncodedEmail);
+
+        /* Update the database; it will fail if a user already exists */
+        mFirebaseRef.updateChildren(userAndUidMapping, new Firebase.CompletionListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                /* If nothing is there ...*/
-                if (dataSnapshot.getValue() == null) {
-                    HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
-
-                    HashMap<String, Object> timestampJoined = new HashMap<>();
-                    timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-                    /* Create a HashMap version of the user to add */
-                    User newUser = new User(userName, mEncodedEmail, timestampJoined);
-                    HashMap<String, Object> newUserMap = (HashMap<String, Object>)
-                            new ObjectMapper().convertValue(newUser, Map.class);
-
-                    /* Add the user and UID to the update map */
-                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_USERS + "/" + mEncodedEmail,
-                            newUserMap);
-                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
-                            + authData.getUid(), mEncodedEmail);
-
-                    /* Update the database */
-                    mFirebaseRef.updateChildren(userAndUidMapping);
-
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null) {
+                    /* Try just making a uid mapping */
+                    mFirebaseRef.child(Constants.FIREBASE_LOCATION_UID_MAPPINGS)
+                            .child(authData.getUid()).setValue(mEncodedEmail);
                 }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
             }
         });
     }

@@ -1,9 +1,9 @@
 {
   "rules": {
     "sharedWith": {
-      ".read" : "true",
-      ".write" : "true",
       "$listId": {
+        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",
+        ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val()",
         "$userId": {
           ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
           "name": {
@@ -31,22 +31,25 @@
       }
     },
     "shoppingListItems": {
-      ".write" : "true",
       "$listId": {
-        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",        
+        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",
+        ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() && newData.val() == null",
         "$itemId": {
+          ".write": "(auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null) && data.val() == null || (auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || auth != null && root.child('uidMappings').child(auth.uid).val() == data.child('owner').val()) && !(data.child('bought').val() == true)",          
           ".validate": "newData.hasChildren(['itemName', 'owner'])",
           "itemName": {
             ".validate": "newData.isString()"
           },
           "owner": {
-            ".validate": "newData.isString()"
+            ".validate": "newData.isString() && data.val() == null"
           },
           "boughtBy": {
-            ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)"
+            ".validate": "(newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i) || newData.val() == null) && newData.val() == root.child('uidMappings').child(auth.uid).val()",
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null"
           },
           "bought": {
-            ".validate": "newData.isBoolean() || newData.val() == null"
+            ".validate": "(newData.isBoolean() || newData.val() == null) && (newData.val() == true && newData.parent().child('boughtBy').val() != null || !(newData.val() == true) && newData.parent().child('boughtBy').val() == null)",
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == root.child('ownerMappings').child($listId).val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null"
           },
           "$other": {
             ".validate": "false"
@@ -55,9 +58,9 @@
       }
     },
     "userFriends": {
-      ".read" : "true",
-      ".write" : "true",
       "$userEncodedEmail": {
+        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == $userEncodedEmail",
+        ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == $userEncodedEmail",
         "$friendEncodedEmail": {
           ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
           "name": {
@@ -85,13 +88,14 @@
       }
     },
     "userLists": {
-      ".read" : "true",
-      ".write" : "true",
       "$userEncodedEmail": {
+        ".read": "auth != null && root.child('uidMappings').child(auth.uid).val() == $userEncodedEmail",
         "$listId": {
-          ".validate": "newData.hasChildren(['listName', 'owner', 'timestampCreated', 'timestampLastChanged'])",
+          ".write": "data.val() == null && (auth != null && root.child('uidMappings').child(auth.uid).val() == newData.child('owner').val()) || newData.val() == null && (auth != null && root.child('uidMappings').child(auth.uid).val() == data.child('owner').val())",
+          ".validate": "newData.hasChildren(['listName', 'owner', 'timestampCreated', 'timestampLastChanged']) && (auth != null && root.child('uidMappings').child(auth.uid).val() == newData.child('owner').val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null)",
           "listName": {
-            ".validate": "newData.isString()"
+            ".validate": "newData.isString()",
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == data.parent().child('owner').val()"
           },
           "owner": {
             ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)"
@@ -106,6 +110,7 @@
             }
           },
           "timestampLastChanged": {
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == data.parent().child('owner').val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",
             ".validate": "newData.hasChildren(['timestamp']) && newData.child('timestamp').val() == now",
             "timestamp": {
               ".validate": "newData.isNumber()"
@@ -115,6 +120,7 @@
             }
           },
           "timestampLastChangedReverse": {
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == data.parent().child('owner').val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",
             ".validate": "newData.hasChildren() && newData.hasChildren(['timestamp']) || newData.val() == null",
             "timestamp": {
               ".validate": "newData.isNumber()"
@@ -124,8 +130,9 @@
             }
           },
           "usersShopping": {
+            ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == data.parent().child('owner').val() || root.child('sharedWith').child($listId).child(root.child('uidMappings').child(auth.uid).val()).val() != null",            
             "$shoppingUser": {
-              ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
+              ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword']) && $shoppingUser == root.child('uidMappings').child(auth.uid).val()",
               "name": {
                 ".validate": "newData.isString()"
               },
@@ -157,8 +164,8 @@
     },
     "users": {
       ".read": "auth != null",
-      ".write" : "true",      
       "$userEncodedEmail": {
+        ".write": "auth != null && newData.parent().parent().child('uidMappings').child(auth.uid).val() == $userEncodedEmail && data.val() == null",        
         ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
         "name": {
           ".validate": "newData.isString()"
@@ -176,7 +183,8 @@
           }
         },
         "hasLoggedInWithPassword": {
-          ".validate": "newData.isBoolean()"
+          ".validate": "newData.isBoolean()",
+          ".write": "auth != null && root.child('uidMappings').child(auth.uid).val() == $userEncodedEmail && !(data.val() == true)"
         },
         "$other": {
           ".validate": "false"
