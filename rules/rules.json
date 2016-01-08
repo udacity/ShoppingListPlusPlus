@@ -183,5 +183,7 @@
         }
       }
     }
+    // TODO You can add the rules for the uid mapping here. Try mapping out the rules before
+    // mapping out the implementation in the client.
   }
 }

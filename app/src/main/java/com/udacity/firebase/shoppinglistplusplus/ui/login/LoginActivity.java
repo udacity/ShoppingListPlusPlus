@@ -401,6 +401,12 @@ public class LoginActivity extends BaseActivity {
         userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // TODO Write the rules for UID Mapping before writing this code!
+                // This is the location where a user is created if they decide to log in with
+                // Google. Here you can create your UID Mapping.
+                //
+                // TODO This is the easier of the two scenarios to deal with so I suggest
+                // starting here.
                     /* If nothing is there ...*/
                 if (dataSnapshot.getValue() == null) {
                     HashMap<String, Object> timestampJoined = new HashMap<>();

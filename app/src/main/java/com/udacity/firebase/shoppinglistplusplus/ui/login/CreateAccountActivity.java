@@ -194,6 +194,13 @@ public class CreateAccountActivity extends BaseActivity {
      * Creates a new user in Firebase from the Java POJO
      */
     private void createUserInFirebaseHelper() {
+        // TODO Write the rules for UID Mapping before writing this code!
+        // This is where you create your user, so you can create your uid mapping in the same
+        // place. You'll need both the email and the uid to create this mapping. Make sure you
+        // have both and find a way to pass in what you need.
+
+        // TODO This is a bit harder than the same code to add the UID Mapping in LoginActivity
+        // so I suggest writing your logic there first.
         final String encodedEmail = Utils.encodeEmail(mUserEmail);
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
         /**
