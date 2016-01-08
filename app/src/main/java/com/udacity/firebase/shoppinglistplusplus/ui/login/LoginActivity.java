@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -42,6 +43,7 @@ import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents Sign in screen and functionality of the app
@@ -298,7 +300,7 @@ public class LoginActivity extends BaseActivity {
             }
         }
     }
-    
+
     /**
      * Helper method that makes sure a user is created if the user
      * logs in with Firebase's email/password provider.
@@ -369,7 +371,7 @@ public class LoginActivity extends BaseActivity {
      *
      * @param authData AuthData object returned from onAuthenticated
      */
-    private void setAuthenticatedUserGoogle(AuthData authData) {
+    private void setAuthenticatedUserGoogle(final AuthData authData) {
         /**
          * If google api client is connected, get the lowerCase user email
          * and save in sharedPreferences
@@ -401,19 +403,27 @@ public class LoginActivity extends BaseActivity {
         userLocation.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // TODO Write the rules for UID Mapping before writing this code!
-                // This is the location where a user is created if they decide to log in with
-                // Google. Here you can create your UID Mapping.
-                //
-                // TODO This is the easier of the two scenarios to deal with so I suggest
-                // starting here.
-                    /* If nothing is there ...*/
+                /* If nothing is there ...*/
                 if (dataSnapshot.getValue() == null) {
+                    HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
+
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
+                    /* Create a HashMap version of the user to add */
                     User newUser = new User(userName, mEncodedEmail, timestampJoined);
-                    userLocation.setValue(newUser);
+                    HashMap<String, Object> newUserMap = (HashMap<String, Object>)
+                            new ObjectMapper().convertValue(newUser, Map.class);
+
+                    /* Add the user and UID to the update map */
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_USERS + "/" + mEncodedEmail,
+                            newUserMap);
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
+                            + authData.getUid(), mEncodedEmail);
+
+                    /* Update the database */
+                    mFirebaseRef.updateChildren(userAndUidMapping);
+
                 }
             }
 
@@ -422,8 +432,6 @@ public class LoginActivity extends BaseActivity {
                 Log.d(LOG_TAG, getString(R.string.log_error_occurred) + firebaseError.getMessage());
             }
         });
-
-
     }
 
     /**
@@ -445,17 +453,17 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * GOOGLE SIGN IN CODE
-     *
+     * <p/>
      * This code is mostly boiler plate from
      * https://developers.google.com/identity/sign-in/android/start-integrating
      * and
      * https://github.com/googlesamples/google-services/blob/master/android/signin/app/src/main/java/com/google/samples/quickstart/signin/SignInActivity.java
-     *
+     * <p/>
      * The big picture steps are:
      * 1. User clicks the sign in with Google button
      * 2. An intent is started for sign in.
-     *      - If the connection fails it is caught in the onConnectionFailed callback
-     *      - If it finishes, onActivityResult is called with the correct request code.
+     * - If the connection fails it is caught in the onConnectionFailed callback
+     * - If it finishes, onActivityResult is called with the correct request code.
      * 3. If the sign in was successful, set the mGoogleAccount to the current account and
      * then call get GoogleOAuthTokenAndLogin
      * 4. getGoogleOAuthTokenAndLogin launches an AsyncTask to get an OAuth2 token from Google.
@@ -466,7 +474,7 @@ public class LoginActivity extends BaseActivity {
 
     /* Sets up the Google Sign In Button : https://developers.google.com/android/reference/com/google/android/gms/common/SignInButton */
     private void setupGoogleSignIn() {
-        SignInButton signInButton = (SignInButton)findViewById(R.id.login_with_google);
+        SignInButton signInButton = (SignInButton) findViewById(R.id.login_with_google);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

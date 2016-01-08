@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -119,7 +121,7 @@ public class CreateAccountActivity extends BaseActivity {
          */
         mFirebaseRef.createUser(mUserEmail, mPassword, new Firebase.ValueResultHandler<Map<String, Object>>() {
             @Override
-            public void onSuccess(Map<String, Object> result) {
+            public void onSuccess(final Map<String, Object> result) {
                 /**
                  * If user was successfully created, run resetPassword() to send temporary 24h
                  * password to the user's email and make sure that user owns specified email
@@ -127,36 +129,48 @@ public class CreateAccountActivity extends BaseActivity {
                 mFirebaseRef.resetPassword(mUserEmail, new Firebase.ResultHandler() {
                     @Override
                     public void onSuccess() {
-                        mAuthProgressDialog.dismiss();
-                        Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
 
-                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);
-                        SharedPreferences.Editor spe = sp.edit();
+                        mFirebaseRef.authWithPassword(mUserEmail, mPassword, new Firebase.AuthResultHandler() {
+                            @Override
+                            public void onAuthenticated(AuthData authData) {
+                                mAuthProgressDialog.dismiss();
+                                Log.i(LOG_TAG, getString(R.string.log_message_auth_successful));
 
-                        /**
-                         * Save name and email to sharedPreferences to create User database record
-                         * when the registered user will sign in for the first time
-                         */
-                        spe.putString(Constants.KEY_SIGNUP_EMAIL, mUserEmail).apply();
+                                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CreateAccountActivity.this);
+                                SharedPreferences.Editor spe = sp.edit();
 
-                        /**
-                         * Encode user email replacing "." with ","
-                         * to be able to use it as a Firebase db key
-                         */
-                        createUserInFirebaseHelper();
+                                /**
+                                 * Save name and email to sharedPreferences to create User database record
+                                 * when the registered user will sign in for the first time
+                                 */
+                                spe.putString(Constants.KEY_SIGNUP_EMAIL, mUserEmail).apply();
 
-                        /**
-                         *  Password reset email sent, open app chooser to pick app
-                         *  for handling inbox email intent
-                         */
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-                        try {
-                            startActivity(intent);
-                            finish();
-                        } catch (android.content.ActivityNotFoundException ex) {
+                                /**
+                                 * Encode user email replacing "." with ","
+                                 * to be able to use it as a Firebase db key
+                                 */
+                                createUserInFirebaseHelper((String) result.get("uid"));
+
+                                /**
+                                 *  Password reset email sent, open app chooser to pick app
+                                 *  for handling inbox email intent
+                                 */
+                                Intent intent = new Intent(Intent.ACTION_MAIN);
+                                intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                                try {
+                                    startActivity(intent);
+                                    finish();
+                                } catch (android.content.ActivityNotFoundException ex) {
                                     /* User does not have any app to handle email */
-                        }
+                                }
+                            }
+
+                            @Override
+                            public void onAuthenticationError(FirebaseError firebaseError) {
+                                Log.e(LOG_TAG, firebaseError.getMessage());
+                            }
+                        });
+
                     }
 
                     @Override
@@ -193,14 +207,7 @@ public class CreateAccountActivity extends BaseActivity {
     /**
      * Creates a new user in Firebase from the Java POJO
      */
-    private void createUserInFirebaseHelper() {
-        // TODO Write the rules for UID Mapping before writing this code!
-        // This is where you create your user, so you can create your uid mapping in the same
-        // place. You'll need both the email and the uid to create this mapping. Make sure you
-        // have both and find a way to pass in what you need.
-
-        // TODO This is a bit harder than the same code to add the UID Mapping in LoginActivity
-        // so I suggest writing your logic there first.
+    private void createUserInFirebaseHelper(final String authUserId) {
         final String encodedEmail = Utils.encodeEmail(mUserEmail);
         final Firebase userLocation = new Firebase(Constants.FIREBASE_URL_USERS).child(encodedEmail);
         /**
@@ -212,13 +219,29 @@ public class CreateAccountActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 /* If there is no user, make one */
                 if (dataSnapshot.getValue() == null) {
-                 /* Set raw version of date to the ServerValue.TIMESTAMP value and save into dateCreatedMap */
+
+                    HashMap<String, Object> userAndUidMapping = new HashMap<String, Object>();
+
+                    /* Set raw version of date to the ServerValue.TIMESTAMP value and save into dateCreatedMap */
                     HashMap<String, Object> timestampJoined = new HashMap<>();
                     timestampJoined.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
+                    /* Create a HashMap version of the user to add */
                     User newUser = new User(mUserName, encodedEmail, timestampJoined);
-                    userLocation.setValue(newUser);
+                    HashMap<String, Object> newUserMap = (HashMap<String, Object>)
+                            new ObjectMapper().convertValue(newUser, Map.class);
+
+                    /* Add the user and UID to the update map */
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_USERS + "/" + encodedEmail,
+                            newUserMap);
+                    userAndUidMapping.put("/" + Constants.FIREBASE_LOCATION_UID_MAPPINGS + "/"
+                            + authUserId, encodedEmail);
+
+                    /* Update the database */
+                    mFirebaseRef.updateChildren(userAndUidMapping);
                 }
+                /* The value has been set, log the user out again; they were only logged in with a temp password */
+                mFirebaseRef.unauth();
             }
 
             @Override

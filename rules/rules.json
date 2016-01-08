@@ -182,8 +182,13 @@
           ".validate": "false"
         }
       }
+    },
+    "uidMappings": {
+      "$uid": {
+        ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)",
+        ".read": "auth != null",
+        ".write": "auth.uid == $uid && data.val() == null"
+      }
     }
-    // TODO You can add the rules for the uid mapping here. Try mapping out the rules before
-    // mapping out the implementation in the client.
   }
 }
