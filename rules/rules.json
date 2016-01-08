@@ -31,6 +31,10 @@
       }
     },
     "shoppingListItems": {
+      // TODO You'll probably want to remove that read rule and replace it with the shiney new
+      // read rule you'll be writing.
+      // READ: The owner or anyone shared on the shopping list can read the shopping list items for
+      // that shopping list.
       ".read" : "true",
       ".write" : "true",
       "$listId": {
@@ -190,5 +194,6 @@
         ".write": "auth.uid == $uid && data.val() == null"
       }
     }
+    // TODO You can add any additional nodes here.
   }
 }

@@ -140,6 +140,7 @@ public class AddListDialogFragment extends DialogFragment {
 
             Utils.updateMapForAllWithValue(null, listId, mEncodedEmail,
                     updateShoppingListData, "", shoppingListMap);
+            // TODO If you want to make mapping for list ownership, this might be a good place to do it!
 
             /* Do the update */
             firebaseRef.updateChildren(updateShoppingListData, new Firebase.CompletionListener() {
