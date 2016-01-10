@@ -14,9 +14,14 @@
           }
         }
       }
+    },
+    "userLists": {
+      "$userEncodedEmail": {
+        "$listId": {
+            "listName": {
+          }
+        }
+      }
     }
-    // TODO Write the JSON structure needed to write a rule for listName in userLists.
-    // You can copy over this file into the online IDE to see if it is correct. 
-    // Remember to use $ variables to represent locations that are lists with unique keys.
   }
 }
