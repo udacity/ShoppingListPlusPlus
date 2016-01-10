@@ -1,0 +1,30 @@
+/** NOTE: This is just an example file for what Bolt code looks like. The rules.json file does not
+ mirror the output of this file **/
+
+// Objects for ShoppingList++
+type User {
+	name : String,
+	email : EncodedEmail,
+	timestampJoined : Timestamp,
+	hasLoggedInWithPassword : Boolean
+}
+
+type Timestamp {
+	timestamp : Number
+}
+
+type EncodedEmail extends String {
+	validate() = this.test(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i);
+}
+
+//Paths
+
+/** UserFriends **/
+path /userFriends/$userEncodedEmail/$friendEncodedEmail is User {
+
+}
+
+/** Users **/
+path /users/$userEncodedEmail is User {
+
+}

@@ -1,16 +1,33 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "true",
-    "users": {
+    ".read" : "true",
+    ".write" : "true",
+    // TODO You can write the rules for the shoppingListItems here. Use the above rules as examples.
+    
+    "userFriends": {
       "$userEncodedEmail": {
-        "email": {
-        },
-        "name": {
-          ".validate": "newData.isString()"
-        },
-        "timestampJoined": {
-          "timestamp": {
+        "$friendEncodedEmail": {
+          ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
+          "name": {
+            ".validate": "newData.isString()"
+          },
+          "email": {
+            ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)"
+          },
+          "timestampJoined": {
+            ".validate": "newData.hasChildren(['timestamp'])",
+            "timestamp": {
+              ".validate": "newData.isNumber()"
+            },
+            "$other": {
+              ".validate": "false"
+            }
+          },
+          "hasLoggedInWithPassword": {
+            ".validate": "newData.isBoolean()"
+          },
+          "$other": {
+            ".validate": "false"
           }
         }
       }
@@ -18,8 +35,34 @@
     "userLists": {
       "$userEncodedEmail": {
         "$listId": {
-            "listName": {
+          "listName": {
           }
+        }
+      }
+    },
+    "users": {
+      "$userEncodedEmail": {
+        ".validate": "newData.hasChildren(['name', 'email', 'timestampJoined', 'hasLoggedInWithPassword'])",
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i)"
+        },
+        "timestampJoined": {
+          ".validate": "newData.hasChildren(['timestamp'])",
+          "timestamp": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": "false"
+          }
+        },
+        "hasLoggedInWithPassword": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$other": {
+          ".validate": "false"
         }
       }
     }
