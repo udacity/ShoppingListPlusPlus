@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <!-- TODO You can remove this list now -->
-        <include layout="@layout/single_active_list"/>
         <ListView
             android:id="@+id/list_view_active_lists"
             android:layout_width="match_parent"

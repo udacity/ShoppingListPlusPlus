@@ -1,7 +1,6 @@
 package com.udacity.firebase.shoppinglistplusplus.ui.activeLists;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,19 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
-import com.udacity.firebase.shoppinglistplusplus.ui.activeListDetails.ActiveListDetailsActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
-import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
-
-import java.util.Date;
 
 
 /**
@@ -31,8 +22,8 @@ import java.util.Date;
  */
 public class ShoppingListsFragment extends Fragment {
     private ListView mListView;
-    private TextView mTextViewListName, mTextViewListOwner;
-    private TextView mTextViewEditTime;
+    private ActiveListAdapter mActiveListAdapter;
+
 
     public ShoppingListsFragment() {
         /* Required empty public constructor */
@@ -47,12 +38,6 @@ public class ShoppingListsFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-    
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     /**
@@ -74,50 +59,23 @@ public class ShoppingListsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_shopping_lists, container, false);
         initializeScreen(rootView);
 
-        // TODO Here is where you need to set up the adapter. You'll also need to delete
-        // your old code that referenced the single "activeList", instead, you should save
-        // data to "activeLists" (plural).
-
         /**
          * Create Firebase references
          */
-        // TODO This is referring to an old location
-        Firebase refListName = new Firebase(Constants.FIREBASE_URL).child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
+        Firebase activeListsRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LISTS);
 
         /**
          * Add ValueEventListeners to Firebase references
          * to control get data and control behavior and visibility of elements
          */
-        // TODO This is referring to an old location
-        refListName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // You can use getValue to deserialize the data at dataSnapshot
-                // into a ShoppingList.
-                ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
+        mActiveListAdapter = new ActiveListAdapter(getActivity(), ShoppingList.class,
+                R.layout.single_active_list, activeListsRef);
 
-                // If there was no data at the location we added the listener, then
-                // shoppingList will be null.
-                if (shoppingList != null) {
-                    // If there was data, take the TextViews and set the appropriate values.
-                    mTextViewListName.setText(shoppingList.getListName());
-                    mTextViewListOwner.setText(shoppingList.getOwner());
-                    if (shoppingList.getTimestampLastChanged() != null) {
-                        mTextViewEditTime.setText(
-                                Utils.SIMPLE_DATE_FORMAT.format(
-                                        new Date(shoppingList.getTimestampLastChangedLong())));
-                    } else {
-                        mTextViewEditTime.setText("");
-                    }
+        /**
+         * Set the adapter to the mListView
+         */
+        mListView.setAdapter(mActiveListAdapter);
 
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
 
         /**
          * Set interactive bits, such as click events and adapters
@@ -129,35 +87,23 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
-        // TODO This OnClickListener is old code.
-        mTextViewListName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /* Starts an active showing the details for the selected list */
-                Intent intent = new Intent(getActivity(), ActiveListDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return rootView;
     }
-
+    
+    /**
+     * Cleanup the adapter when activity is destroyed.
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // TODO Don't forget to clean up your adapter!
+        mActiveListAdapter.cleanup();
     }
 
 
     /**
-     * Link layout elements from XML
+     * Link list view from XML
      */
     private void initializeScreen(View rootView) {
         mListView = (ListView) rootView.findViewById(R.id.list_view_active_lists);
-        // Get the TextViews in the single_active_list layout for list name, edit time and owner
-        // TODO Clean up the code here. Do you need all these TextViews?
-        mTextViewListName = (TextView) rootView.findViewById(R.id.text_view_list_name);
-        mTextViewListOwner = (TextView) rootView.findViewById(R.id.text_view_created_by_user);
-        mTextViewEditTime = (TextView) rootView.findViewById(R.id.text_view_edit_time);
     }
 }
