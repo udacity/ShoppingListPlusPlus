@@ -13,7 +13,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
 
 /**
  * Adds a new shopping list
@@ -89,7 +92,13 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
 
+        String userEnteredName = mEditTextListName.getText().toString();
+        ShoppingList shoppingList = new ShoppingList(userEnteredName, "Anonymouse user");
+        myRef.child("activeList").setValue(shoppingList);
     }
 
 }
