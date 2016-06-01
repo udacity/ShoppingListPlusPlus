@@ -12,6 +12,8 @@ public class ShoppingListApplication extends android.app.Application {
         super.onCreate();
         /* Initialize Firebase */
         Firebase.setAndroidContext(this);
+        /* Enable disk persistence  */
+        Firebase.getDefaultConfig().setPersistenceEnabled(true);
     }
 
 }

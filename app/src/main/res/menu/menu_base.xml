@@ -6,6 +6,6 @@
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/action_logout"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="never" />
 </menu>

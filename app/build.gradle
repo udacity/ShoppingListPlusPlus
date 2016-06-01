@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 23
@@ -43,7 +44,11 @@ dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support:cardview-v7:23.0.1'
 
+    /* Firebase SDK */
     compile 'com.firebase:firebase-client-android:2.4.0'
+
+    /* Firebase UI */
+    compile 'com.firebaseui:firebase-ui:0.2.2'
 
     /* For Google Play Services */
     compile 'com.google.android.gms:play-services-safetynet:8.3.0'
