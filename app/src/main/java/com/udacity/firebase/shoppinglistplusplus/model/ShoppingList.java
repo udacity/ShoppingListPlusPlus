@@ -46,4 +46,34 @@ public class ShoppingList {
     public String toString() {
         return listName + " by " + owner;
     }
+
+/*    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // this is used to regenerate your object. All Parcelables must have a CREATOR that implements these two methods
+    public static final Parcelable.Creator<ShoppingList> CREATOR = new Parcelable.Creator<ShoppingList>() {
+        public ShoppingList createFromParcel(Parcel in) {
+            return new ShoppingList(in);
+        }
+
+        public ShoppingList[] newArray(int size) {
+            return new ShoppingList[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(listName);
+        dest.writeString(owner);
+//        dest.writeLong(creationDate);
+    }
+
+    // example constructor that takes a Parcel and gives you an object populated with it's values
+    private ShoppingList(Parcel in) {
+        listName = in.readString();
+        owner = in.readString();
+//        creationDate = in.readLong();
+    }*/
 }

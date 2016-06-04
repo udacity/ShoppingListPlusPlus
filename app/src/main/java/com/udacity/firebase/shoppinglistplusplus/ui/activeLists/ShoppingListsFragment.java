@@ -1,6 +1,7 @@
 package com.udacity.firebase.shoppinglistplusplus.ui.activeLists;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.ui.activeListDetails.ActiveListDetailsActivity;
 import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 import java.util.Date;
@@ -29,7 +31,7 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class ShoppingListsFragment extends Fragment {
-    private String TAG_LOG = getClass().getSimpleName();
+    private String TAG_LOG = ShoppingListsFragment.class.getSimpleName();
     private ListView mListView;
     private TextView mTextViewListName;
     private TextView mTextViewCreatedByUser;
@@ -84,7 +86,7 @@ public class ShoppingListsFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ShoppingList shoppingList = dataSnapshot.child("activeList").getValue(ShoppingList.class);
+                ShoppingList shoppingList = dataSnapshot.child(Utils.ACTIVE_LIST_NODE_NAME).getValue(ShoppingList.class);
                 if(shoppingList != null) {
                     Log.e(TAG_LOG, "Data Changed:"+shoppingList.getListName());
                     mTextViewListName.setText(shoppingList.getListName());
@@ -116,6 +118,14 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
+        mTextViewListName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG_LOG, "mListView is clicked.");
+                Intent intent = new Intent(getActivity(), ActiveListDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 

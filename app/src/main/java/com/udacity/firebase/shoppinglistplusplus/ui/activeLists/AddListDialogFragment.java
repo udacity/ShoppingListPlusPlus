@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.udacity.firebase.shoppinglistplusplus.R;
 import com.udacity.firebase.shoppinglistplusplus.model.ShoppingList;
+import com.udacity.firebase.shoppinglistplusplus.utils.Utils;
 
 /**
  * Adds a new shopping list
@@ -98,8 +99,7 @@ public class AddListDialogFragment extends DialogFragment {
 
         String userEnteredName = mEditTextListName.getText().toString();
         ShoppingList shoppingList = new ShoppingList(userEnteredName, "Anonymouse user");
-        myRef.child("activeList").setValue(shoppingList);
+        myRef.child(Utils.ACTIVE_LIST_NODE_NAME).setValue(shoppingList);
     }
 
 }
-
