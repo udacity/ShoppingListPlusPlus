@@ -13,7 +13,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
 import com.udacity.firebase.shoppinglistplusplus.R;
+import com.udacity.firebase.shoppinglistplusplus.utils.Constants;
 
 /**
  * Adds a new shopping list
@@ -89,7 +91,14 @@ public class AddListDialogFragment extends DialogFragment {
      * Add new active list
      */
     public void addShoppingList() {
-
+        // Get the reference to the root node in Firebase
+        Firebase ref = new Firebase(Constants.FIREBASE_URL);
+        // Get the string that the user entered into the EditText
+        String userEnteredName = mEditTextListName.getText().toString();
+        // Go to the "listName" child node of the root node.
+        // This will create the node for you if it doesn't already exist.
+        // Then using the setValue menu it will set value the node to userEnteredName.
+        ref.child("listName").setValue(userEnteredName);
     }
 
 }
