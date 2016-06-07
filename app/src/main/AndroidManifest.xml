@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.udacity.firebase.shoppinglistplusplus">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.udacity.firebase.shoppinglistplusplus.ShoppingListApplication"
         android:allowBackup="true"
