@@ -1,0 +1,199 @@
+/** NOTE: This is just an example file for what Bolt code looks like. The rules.json file does not
+ mirror the output of this file **/
+
+// Objects for ShoppingList++
+type Timestamp {
+	timestamp : Number
+}
+
+type EncodedEmail extends String {
+	validate() = this.test(/^[A-Z0-9,_%+-]+@[A-Z0-9,-]+,[A-Z]{2,4}$/i);
+}
+
+type User {
+	name : String,
+	email : EncodedEmail,
+	timestampJoined : Timestamp,
+	hasLoggedInWithPassword : Boolean
+}
+
+type ShoppingListItem {
+    itemName : String,
+    owner : String,
+    boughtBy : EncodedEmail | Null,
+    bought : Boolean | Null
+}
+
+type ShoppingList {
+	listName : String,
+	owner : EncodedEmail,
+	timestampCreated : Timestamp,
+	timestampLastChanged : Timestamp,
+	timestampLastChangedReverse : Timestamp | Null,
+	usersShopping : Map<String, User>
+}
+
+//Functions
+
+function isOwner(ownerEmail) {
+	(isLoggedIn() && getEncodedEmail() == ownerEmail);
+}
+
+function isOwnerOrShared(ownerId, listId) {
+	(isOwner(ownerId) || (prior(root).sharedWith[listId][getEncodedEmail()] != null)); //getEncodedEmail() != null && 
+}
+
+function isLoggedIn() {
+	auth != null;
+}
+
+function isShopping(listId) {
+	prior(root).userLists[getOwnerEmail(listId)][listId].usersShopping[getEncodedEmail()] != null;
+}
+
+function getEncodedEmail() {
+	prior(root).uidMappings[auth.uid];
+}
+
+function getOwnerEmail(listId) {
+	prior(root).ownerMappings[listId];
+}
+
+//Paths
+
+/** SharedWith **/
+
+// Read: List owners and shared
+// Write: Add/Remove for list owner
+
+path /sharedWith/$listId {
+	read() = isOwnerOrShared(getOwnerEmail($listId), $listId);
+	write() = isOwner(getOwnerEmail($listId));
+}
+
+path /sharedWith/$listId/$userId is User {
+}
+
+
+/** Shopping List Items **/
+
+
+// Read: List owner and shared
+// Write: Owner can remove all items
+path /shoppingListItems/$listId {
+	read() = isOwnerOrShared(getOwnerEmail($listId), $listId);
+	write() = isOwner(getOwnerEmail($listId)) && this == null;
+}
+
+// Write: Add for owner or shared; Remove/Edit for list owner or item's owner and if it's not bought
+path /shoppingListItems/$listId/$itemId is ShoppingListItem {
+	write() = (isOwnerOrShared(getOwnerEmail($listId), $listId) && prior(this) == null) || ((isOwner(getOwnerEmail($listId)) || isOwner(prior(this.owner))) && !prior(this.bought));
+}
+
+//Write: List owner or shared
+//Validate: If this item is true, there must be a boughtBy. If this item is false, there must be no bought by.
+path /shoppingListItems/$listId/$itemId/bought {
+	write() = isOwnerOrShared(getOwnerEmail($listId), $listId); //&& isShopping($listId);
+	validate() = (this && this.parent().boughtBy != null) || (!this && this.parent().boughtBy == null);
+}
+
+//Write: List owner or shared
+//Validate: The person must be the user
+path /shoppingListItems/$listId/$itemId/boughtBy {
+	write() = isOwnerOrShared(getOwnerEmail($listId), $listId);
+	validate() = this == getEncodedEmail();
+}
+
+//Validate: Cannot change
+path /shoppingListItems/$listId/$itemId/owner {
+	validate() = prior(this) == null;
+}
+
+/** UserFriends **/
+
+//Read : The owner
+//Write : The owner
+
+path /userFriends/$userEncodedEmail {
+	read() = isOwner($userEncodedEmail);
+	write() = isOwner($userEncodedEmail);
+}
+
+path /userFriends/$userEncodedEmail/$friendEncodedEmail is User {
+
+}
+
+/** UserLists **/
+//Read: The owner
+path /userLists/$userEncodedEmail {
+	read() = isOwner($userEncodedEmail);
+}
+
+
+//Write: Add/Delete only the owner
+//Validate: List owner and shared
+
+path /userLists/$userEncodedEmail/$listId is ShoppingList{
+	write() = (prior(this) == null && isOwner(this.owner)) || (this == null && isOwner(prior(this.owner)));
+	validate() = isOwnerOrShared(this.owner, $listId);
+}
+
+//Write: The owner
+path /userLists/$userEncodedEmail/$listId/listName {
+	write() = isOwner(prior(this.parent().owner));
+}
+
+//Write: The owner or shared
+//Validate: Must be now
+path /userLists/$userEncodedEmail/$listId/timestampLastChanged {
+	write() = isOwnerOrShared(prior(this.parent().owner), $listId);
+	validate() = this.timestamp == now;
+}
+
+//Write: The owner or shared
+path /userLists/$userEncodedEmail/$listId/timestampLastChangedReverse {
+	write() = isOwnerOrShared(prior(this.parent().owner), $listId);
+}
+
+//Write: The owner or shared
+path /userLists/$userEncodedEmail/$listId/usersShopping {
+	write() = isOwnerOrShared(prior(this.parent().owner), $listId);
+}
+
+//Validate: User must add themselves
+path /userLists/$userEncodedEmail/$listId/usersShopping/$key1 {
+	validate() = key() == getEncodedEmail();
+}
+
+/** Users **/
+
+//Read: Logged in
+path /users {
+	read() = isLoggedIn();
+}
+
+//Write: The user can add themselves
+path /users/$userEncodedEmail is User {
+	write() = isLoggedIn() && root.uidMappings[auth.uid] == $userEncodedEmail && prior(this) == null;
+}
+
+//Write: The user can change if it's false
+path /users/$userEncodedEmail/hasLoggedInWithPassword {
+	write() = isOwner($userEncodedEmail) && !prior(this);
+}
+
+/** uidMappings **/
+//Read: Anyone logged in
+//Write: The user can add themselves 
+path /uidMappings/$uid is EncodedEmail{
+	read() = isLoggedIn();
+	write() = auth.uid == $uid && prior(this) == null;
+}
+
+/** ownerMappings **/
+//Read: Anyone logged in
+//Write: The owner
+path /ownerMappings/$listId {
+	read() = isLoggedIn();
+	write() = isOwner(prior(this)) || isOwner(this);
+}

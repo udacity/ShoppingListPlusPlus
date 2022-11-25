@@ -14,6 +14,9 @@ public class ShoppingList {
     private String listName;
     private String owner;
     private HashMap<String, Object> timestampLastChanged;
+    private HashMap<String, Object> timestampCreated;
+    private HashMap<String, Object> timestampLastChangedReverse;
+    private HashMap<String, User> usersShopping;
 
     /**
      * Required public constructor
@@ -28,15 +31,16 @@ public class ShoppingList {
      *
      * @param listName
      * @param owner
-     *
      */
-    public ShoppingList(String listName, String owner) {
+    public ShoppingList(String listName, String owner, HashMap<String, Object> timestampCreated) {
         this.listName = listName;
         this.owner = owner;
-        HashMap<String, Object> timestampLastChangedObj = new HashMap<String, Object>();
-        timestampLastChangedObj.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-        this.timestampLastChanged = timestampLastChangedObj;
-
+        this.timestampCreated = timestampCreated;
+        HashMap<String, Object> timestampNowObject = new HashMap<String, Object>();
+        timestampNowObject.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+        this.timestampLastChanged = timestampNowObject;
+        this.timestampLastChangedReverse = null;
+        this.usersShopping = new HashMap<>();
     }
 
     public String getListName() {
@@ -51,12 +55,41 @@ public class ShoppingList {
         return timestampLastChanged;
     }
 
+    public HashMap<String, Object> getTimestampCreated() {
+        return timestampCreated;
+    }
+
+    public HashMap<String, Object> getTimestampLastChangedReverse() {
+        return timestampLastChangedReverse;
+    }
 
     @JsonIgnore
     public long getTimestampLastChangedLong() {
 
         return (long) timestampLastChanged.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
     }
+
+    @JsonIgnore
+    public long getTimestampCreatedLong() {
+        return (long) timestampLastChanged.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
+    }
+
+    @JsonIgnore
+    public long getTimestampLastChangedReverseLong() {
+
+        return (long) timestampLastChangedReverse.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
+    }
+
+    public HashMap getUsersShopping() {
+        return usersShopping;
+    }
+
+    public void setTimestampLastChangedToNow() {
+        HashMap<String, Object> timestampNowObject = new HashMap<String, Object>();
+        timestampNowObject.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+        this.timestampLastChanged = timestampNowObject;
+    }
+
 
 }
 
